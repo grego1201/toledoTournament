@@ -1,0 +1,14 @@
+<h1><%= @fencer.name %></h1>
+
+<p><%= @fencer.team %></p>
+<p><%= @fencer.surname %></p>
+<p><%= @fencer.second_surname %></p>
+<p><%= @fencer.nationality %></p>
+
+<ul>
+  <li><%= link_to 'Edit', edit_fencer_path(@fencer) %></li>
+  <li><%= link_to 'Destroy', fencer_path(@fencer),
+    method: :delete,
+    data: { confirm: 'Are you sure?' } %></li>
+  <li><%= link_to 'Back', fencers_path %></li>
+</ul>

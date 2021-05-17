@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root 'competitions#index'
 
   resources :competitions
+  resources :fencers
 end

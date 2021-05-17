@@ -1,0 +1,45 @@
+<%= form_with model: @fencer do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    <% @fencer.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :surname %><br>
+    <%= form.text_field :surname %>
+    <% @fencer.errors.full_messages_for(:surname).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :second_surname %><br>
+    <%= form.text_field :second_surname %>
+    <% @fencer.errors.full_messages_for(:second_surname).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :team %><br>
+    <%= form.text_field :team %>
+    <% @fencer.errors.full_messages_for(:team).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :nationality %><br>
+    <%= form.text_field :nationality %>
+    <% @fencer.errors.full_messages_for(:nationality).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
