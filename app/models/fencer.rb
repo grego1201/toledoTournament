@@ -1,0 +1,2 @@
+class Fencer < ApplicationRecord
+end
