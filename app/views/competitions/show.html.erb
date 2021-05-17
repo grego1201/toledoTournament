@@ -1,0 +1,11 @@
+<h1><%= @competition.name %></h1>
+
+<p><%= @competition.date %></p>
+
+<ul>
+  <li><%= link_to 'Edit', edit_competition_path(@competition) %></li>
+  <li><%= link_to 'Destroy', competition_path(@competition),
+    method: :delete,
+    data: { confirm: 'Are you sure?' } %></li>
+  <li><%= link_to 'Back', competitions_path %></li>
+</ul>
