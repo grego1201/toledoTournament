@@ -45,6 +45,6 @@ class FencersController < ApplicationController
   private
 
   def safe_params
-    params.require(:fencer).permit(:name, :surname, :second_surname, :nationality, :team)
+    params.require(:fencer).permit(:name, :surname, :second_surname, :nationality, :club)
   end
 end

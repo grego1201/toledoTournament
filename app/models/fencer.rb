@@ -1,3 +1,5 @@
 class Fencer < ApplicationRecord
-  validates :name, :team, presence: true
+  validates :name, :club, presence: true
+
+  belongs_to :team
 end
