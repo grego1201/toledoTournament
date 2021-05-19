@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'competitions#index'
+  root to: "welcome#index"
 
   resources :competitions
   resources :fencers
   resources :teams
 
+  get "welcome/index"
   post '/generate_random_teams', to: 'teams#generate_random_teams'
 end
