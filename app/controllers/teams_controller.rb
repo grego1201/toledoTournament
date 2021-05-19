@@ -85,6 +85,18 @@ class TeamsController < ApplicationController
       Team.create(fencer_ids: [first_fencer, second_fencer])
     end
 
+    if clubs.length > 0
+      same_team_fencers = clubs.first.second
+      while same_team_fencers.size > 1 do
+        first_fencer = same_team_fencers.sample
+        same_team_fencers.delete(first_fencer)
+        second_fencer = same_team_fencers.sample
+        same_team_fencers.delete(second_fencer)
+
+        Team.create(fencer_ids: [first_fencer, second_fencer])
+      end
+    end
+
     redirect_to teams_path
   end
 
