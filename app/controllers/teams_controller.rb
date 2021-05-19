@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   def index
     @teams = Team.all
+    @fencers_without_team = Fencer.without_team
   end
 
   def show
@@ -16,7 +17,6 @@ class TeamsController < ApplicationController
     @team = Team.new(fencer_ids: [safe_params['fencer2'].to_i, safe_params['fencer1'].to_i])
     @fencers = prepare_fencers_select
 
-    byebug
     if @team.save
       redirect_to @team
     else
@@ -50,6 +50,43 @@ class TeamsController < ApplicationController
     redirect_to teams_path
   end
 
+  def generate_random_teams
+    Team.destroy_all
+    Fencer.where.not(team_id: nil).update_all(team_id: nil)
+
+    clubs = {}
+    Fencer.all.each do |fencer|
+      clubs[fencer.club] = [] if clubs[fencer.club].nil?
+      clubs[fencer.club] << fencer.id
+    end
+
+    while clubs.length > 1 do
+      max_number = clubs.length - 1
+      first_club = [*0..max_number].sample
+      if first_club == 0
+        second_club = [*1..max_number].sample
+      elsif first_club == max_number
+        second_club = [*0..max_number - 1].sample
+      else
+        second_club = [*0..first_club - 1, *first_club + 1..max_number].sample
+      end
+
+      first_club_key = clubs.keys[first_club]
+      first_fencer = clubs[first_club_key].sample
+      clubs[first_club_key].delete(first_fencer)
+
+      second_club_key = clubs.keys[second_club]
+      second_fencer = clubs[second_club_key].sample
+      clubs[second_club_key].delete(second_fencer)
+
+      clubs.except!(first_club_key) if clubs[first_club_key].size.zero?
+      clubs.except!(second_club_key) if clubs[second_club_key].size.zero?
+
+      Team.create(fencer_ids: [first_fencer, second_fencer])
+    end
+
+    redirect_to teams_path
+  end
 
   private
 
@@ -63,4 +100,3 @@ class TeamsController < ApplicationController
     Fencer.where(id: fencer_ids)
   end
 end
-

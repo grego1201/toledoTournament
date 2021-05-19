@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :competitions
   resources :fencers
   resources :teams
+
+  post '/generate_random_teams', to: 'teams#generate_random_teams'
 end
