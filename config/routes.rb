@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   resources :competitions
   resources :fencers
+  resources :teams
 end

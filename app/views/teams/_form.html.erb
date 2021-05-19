@@ -1,0 +1,21 @@
+<%= form_with model: @team do |form| %>
+  <div>
+    <%= form.label :fencer1 %><br>
+    <%= form.select :fencer1, options_from_collection_for_select(@fencers, 'id', 'name', @team.fencers.first&.id) %>
+    <% @team.errors.full_messages_for(:fencer1).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :fencer2 %><br>
+    <%= form.select :fencer2, options_from_collection_for_select(@fencers, 'id', 'name', @team.fencers.second&.id) %>
+    <% @team.errors.full_messages_for(:fencer2).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
