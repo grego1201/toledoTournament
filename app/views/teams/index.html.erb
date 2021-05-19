@@ -9,3 +9,11 @@
 </ul>
 
 <%= link_to 'Create', new_team_path %>
+<%= link_to 'Generate random teams', generate_random_teams_path, method: :post %>
+
+<h1> Fencers without club </h1>
+<ul>
+  <% @fencers_without_team.each do |fencer| %>
+    <li> <%= fencer.name %> - <%= fencer.club %></li>
+  <% end %>
+</ul>
