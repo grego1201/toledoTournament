@@ -53,6 +53,14 @@ class FencersController < ApplicationController
   end
 
   def export_file
+    file_path = "tmp/test_#{Time.now.to_i}.csv"
+    CSV.open(file_path, "w") do |csv|
+      Fencer.all.each do |fencer|
+        csv << [fencer.name, fencer.club, fencer.surname, fencer.second_surname, fencer.nationality]
+      end
+    end
+
+    send_file(file_path)
   end
 
   private
