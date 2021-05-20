@@ -1,8 +1,8 @@
 <h1>Competitions</h1>
 
-<ul>
-  <% @competitions.each do |competition| %>
-    <li>
+<ul class="list-group">
+  <% @competitions.each_with_index do |competition, index| %>
+    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
       <%= link_to competition.name, competition %>
     </li>
   <% end %>
