@@ -43,6 +43,13 @@ class FencersController < ApplicationController
   end
 
   def export_text
+    @fencers = Fencer.all
+    @export_text = ''
+    Fencer.all.each do |fencer|
+      @export_text += "#{fencer.name},#{fencer.club},#{fencer.surname},#{fencer.second_surname},#{fencer.nationality};"
+    end
+
+    render :index
   end
 
   def export_file
