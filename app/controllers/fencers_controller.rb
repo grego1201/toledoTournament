@@ -63,6 +63,12 @@ class FencersController < ApplicationController
     send_file(file_path)
   end
 
+  def import_text
+  end
+
+  def import_file
+  end
+
   private
 
   def safe_params
