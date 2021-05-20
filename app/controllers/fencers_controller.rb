@@ -42,6 +42,12 @@ class FencersController < ApplicationController
     redirect_to fencers_path
   end
 
+  def export_text
+  end
+
+  def export_file
+  end
+
   private
 
   def safe_params

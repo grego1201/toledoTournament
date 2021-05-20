@@ -9,3 +9,5 @@
 </ul>
 
 <%= link_to 'Create', new_fencer_path %>
+<%= link_to 'Export as text', export_fencers_text_path, method: :post %>
+<%= link_to 'Export as file (csv)', export_fencers_file_path, method: :post %>
