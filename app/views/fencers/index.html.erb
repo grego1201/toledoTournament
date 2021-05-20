@@ -1,8 +1,8 @@
 <h1>Fencers</h1>
 
-<ul>
-  <% @fencers.each do |fencer| %>
-    <li>
+<ul class="list-group">
+  <% @fencers.each_with_index do |fencer, index| %>
+    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
       <%= link_to fencer.name, fencer %>
     </li>
   <% end %>

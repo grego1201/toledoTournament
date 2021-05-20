@@ -1,8 +1,8 @@
 <h1>Teams</h1>
 
-<ul>
-  <% @teams.each do |team| %>
-    <li>
+<ul class="list-group">
+  <% @teams.each_with_index do |team, index| %>
+    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
       <%= link_to team.id, team %>
     </li>
   <% end %>
@@ -12,8 +12,10 @@
 <%= link_to 'Generate random teams', generate_random_teams_path, method: :post %>
 
 <h1> Fencers without club </h1>
-<ul>
-  <% @fencers_without_team.each do |fencer| %>
-    <li> <%= fencer.name %> - <%= fencer.club %></li>
+<ul class="list-group">
+  <% @fencers_without_team.each_with_index do |fencer, index| %>
+      <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
+        <%= fencer.name %> - <%= fencer.club %>
+      </li>
   <% end %>
 </ul>
