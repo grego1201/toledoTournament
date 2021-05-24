@@ -63,7 +63,28 @@ class FencersController < ApplicationController
     send_file(file_path)
   end
 
+  def import
+    @fencers = Fencer.all
+
+    render :import_fencers
+  end
+
   def import_text
+    fencers_param = params.require(:users_import)
+    splitted_fencers = fencers_param.split(';')
+    splitted_fencers.each do |splitted_fencer|
+      splitted_attrs = splitted_fencer.split(',')
+      fencer_attr = {}
+      fencer_attr[:name] = splitted_attrs[0]
+      fencer_attr[:club] = splitted_attrs[1]
+      fencer_attr[:surname] = splitted_attrs[2]
+      fencer_attr[:second_surname] = splitted_attrs[3]
+      fencer_attr[:nationality] = splitted_attrs[4]
+
+      Fencer.create(fencer_attr)
+    end
+
+    redirect_to fencers_path
   end
 
   def import_file

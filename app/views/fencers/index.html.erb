@@ -15,8 +15,7 @@
 <%= link_to 'Export as file (csv)', export_fencers_file_path, method: :post %>
 <p>
 
-<%= link_to 'Import fencers from text', import_fencers_text_path, method: :post %>
-<%= link_to 'Import fencers from file (csv)', import_fencers_file_path, method: :post %>
+<%= link_to 'Import fencers', import_fencers_path %>
 
 <% unless @export_text.blank? %>
   <h1> Export result</h1>
