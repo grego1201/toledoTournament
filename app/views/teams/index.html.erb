@@ -8,8 +8,10 @@
   <% end %>
 </ul>
 
-<%= link_to 'Create', new_team_path %>
-<%= link_to 'Generate random teams', generate_random_teams_path, method: :post %>
+<% if user_signed_in? %>
+  <%= link_to 'Create', new_team_path %>
+  <%= link_to 'Generate random teams', generate_random_teams_path, method: :post %>
+<% end %>
 
 <h1> Fencers without club </h1>
 <ul class="list-group">
