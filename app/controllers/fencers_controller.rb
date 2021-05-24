@@ -72,27 +72,36 @@ class FencersController < ApplicationController
   def import_text
     fencers_param = params.require(:users_import)
     splitted_fencers = fencers_param.split(';')
-    splitted_fencers.each do |splitted_fencer|
-      splitted_attrs = splitted_fencer.split(',')
-      fencer_attr = {}
-      fencer_attr[:name] = splitted_attrs[0]
-      fencer_attr[:club] = splitted_attrs[1]
-      fencer_attr[:surname] = splitted_attrs[2]
-      fencer_attr[:second_surname] = splitted_attrs[3]
-      fencer_attr[:nationality] = splitted_attrs[4]
-
-      Fencer.create(fencer_attr)
-    end
+    splitted_fencers = splitted_fencers.map { |fencer| fencer.split(',')}
+    create_fencers_from_import(splitted_fencers)
 
     redirect_to fencers_path
   end
 
   def import_file
+    file = params.require(:users_import).tempfile
+    file_content = CSV.read(file.path)
+    create_fencers_from_import(file_content)
+
+    redirect_to fencers_path
   end
 
   private
 
   def safe_params
     params.require(:fencer).permit(:name, :surname, :second_surname, :nationality, :club)
+  end
+
+  def create_fencers_from_import(fencer_attrs)
+    fencer_attrs.each do |attrs|
+      fencer_attr = {}
+      fencer_attr[:name] = attrs[0]
+      fencer_attr[:club] = attrs[1]
+      fencer_attr[:surname] = attrs[2]
+      fencer_attr[:second_surname] = attrs[3]
+      fencer_attr[:nationality] = attrs[4]
+
+      Fencer.create(fencer_attr)
+    end
   end
 end
