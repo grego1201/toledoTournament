@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :competitions
   resources :fencers
   resources :teams
+  resources :poules
 
   get "welcome/index"
   post '/generate_random_teams', to: 'teams#generate_random_teams'
@@ -14,4 +15,5 @@ Rails.application.routes.draw do
   get '/import_fencers', to: 'fencers#import'
   post '/import_fencers_text', to: 'fencers#import_text'
   post '/import_fencers_file', to: 'fencers#import_file'
+  post '/generate_random_poules', to: 'poules#generate_random_poules'
 end

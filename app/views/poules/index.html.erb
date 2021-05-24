@@ -1,0 +1,22 @@
+<h1>Poules</h1>
+
+<ul class="list-group">
+  <% @poules.each_with_index do |poule, index| %>
+    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
+      <%= link_to poule.id, poule %>
+    </li>
+  <% end %>
+</ul>
+
+<% if user_signed_in? %>
+  <%= form_with url: '/generate_random_poules', method: :post do |form| %>
+    <div class="form-group">
+      <%= form.label :max_per_poule %>
+      <%= form.number_field :max_per_poule, { class: 'form-control', required: true, default: 6 } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  <% end %>
+<% end %>
+
+
