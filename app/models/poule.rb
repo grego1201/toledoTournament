@@ -1,0 +1,2 @@
+class Poule < ApplicationRecord
+end
