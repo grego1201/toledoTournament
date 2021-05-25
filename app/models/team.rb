@@ -1,5 +1,6 @@
 class Team < ApplicationRecord
   has_many :fencers
+  belongs_to :poule, optional: true
 
   validate :check_fencers
 
