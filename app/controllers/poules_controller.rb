@@ -30,6 +30,29 @@ class PoulesController < ApplicationController
       Poule.create(team_ids: teams)
     end
 
+    generate_poule_matches
+
     redirect_to poules_path
+  end
+
+  private
+
+  def generate_poule_matches
+    Poule.all.each do |poule|
+      team_ids = poule.teams.map(&:id)
+      poule_matches = {}
+
+      team_ids.each do |team_id|
+        poule_matches[team_id] = {}
+        team_ids.each do |other_team_id|
+          next if team_id == other_team_id
+
+          poule_matches[team_id][other_team_id] = nil
+        end
+      end
+
+      poule.poule_matches = poule_matches
+      poule.save
+    end
   end
 end
