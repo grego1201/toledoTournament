@@ -6,6 +6,7 @@ class PoulesController < ApplicationController
   def show
     @poule = Poule.find(params[:id])
     @poule_results = calculate_results_from_poule
+    @teams = @poule.teams
   end
 
   def generate_random_poules
@@ -40,6 +41,28 @@ class PoulesController < ApplicationController
     redirect_to poules_path
   end
 
+  def add_poule_result
+    safe_params = params.permit(:poule_results, :team_id, :id)
+    poule_id = safe_params[:id]
+    poule = Poule.find(poule_id)
+    poule_results = safe_params[:poule_results]
+    team_id = safe_params[:team_id]
+
+    poule_matches = poule.poule_matches[team_id]
+    new_results = {}
+    splitted_results = poule_results.split(',')
+    poule_matches.keys.sort.each_with_index do |key, index|
+      result = splitted_results[index].delete(' ')
+      victory = result.include?('V') || result.to_i == 20
+      new_results[key] = [victory, result]
+    end
+
+    poule.poule_matches.merge!({team_id.to_sym => new_results})
+    poule.save
+
+    redirect_to poule_path(poule_id)
+  end
+
   private
 
   def generate_poule_matches
@@ -66,33 +89,36 @@ class PoulesController < ApplicationController
       [
         key,
         nil,
-        team_match_results(key, value),
+        team_match_results(key, value, @poule),
         nil,
         team_statistics(key, value, @poule)
       ].flatten
     end
   end
 
-  def team_match_results(team_id, values)
-    values.keys.sort.map do |op_team_id|
+  def team_match_results(team_id, values, poule)
+    match_results = values.keys.sort.map do |op_team_id|
       victory, points = values[op_team_id]
 
       victory_char = ''
       victory_char = 'V' if victory && points.to_i < 20
       "#{victory_char}#{points}"
     end
+
+    team_index = poule.team_ids.map(&:to_s).sort.find_index(team_id)
+    match_results.insert(team_index, [nil, nil])
   end
 
   def team_statistics(team_id, values, poule)
     hit_points = 0
     values.each do |_, result|
-      hit_points += result&.second || 0
+      hit_points += result&.second.to_i || 0
     end
 
     received_points = 0
     poule.poule_matches.keys.each do |key|
       next if key == team_id
-      received_points += poule.poule_matches[key][team_id]&.second || 0
+      received_points += poule.poule_matches[key][team_id]&.second.to_i || 0
     end
 
     victories = 0
