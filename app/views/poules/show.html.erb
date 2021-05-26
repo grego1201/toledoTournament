@@ -1,0 +1,31 @@
+<h1><%= @poule.id %></h1>
+
+<div class='table-responsive'>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"><%= "Poule No #{@poule.id}" %></th>
+
+        <% ((@poule.teams.count + 1) * 2).times do |_| %>
+          <th scope="col"></th>
+        <% end %>
+
+        <th scope="col">V/M</th>
+        <th scope="col"></th>
+        <th scope="col">TD-TR</th>
+        <th scope="col"></th>
+        <th scope="col">TD</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @poule_results.each do |result| %>
+        <tr>
+          <th scope="row"><%= result.first %>
+          <% result[1..-1].each do |cell_value| %>
+            <td> <%= cell_value %><td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
