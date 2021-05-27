@@ -63,6 +63,9 @@ class PoulesController < ApplicationController
     redirect_to poule_path(poule_id)
   end
 
+  def calculcate_classification
+  end
+
   private
 
   def generate_poule_matches
