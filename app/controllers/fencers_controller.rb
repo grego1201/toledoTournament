@@ -46,7 +46,7 @@ class FencersController < ApplicationController
     @fencers = Fencer.all
     @export_text = ''
     Fencer.all.each do |fencer|
-      @export_text += "#{fencer.name},#{fencer.club},#{fencer.surname},#{fencer.second_surname},#{fencer.nationality};"
+      @export_text += "#{fencer.name},#{fencer.surname},#{fencer.club},#{fencer.nationality};"
     end
 
     render :index
@@ -56,7 +56,7 @@ class FencersController < ApplicationController
     file_path = "tmp/test_#{Time.now.to_i}.csv"
     CSV.open(file_path, "w") do |csv|
       Fencer.all.each do |fencer|
-        csv << [fencer.name, fencer.club, fencer.surname, fencer.second_surname, fencer.nationality]
+        csv << [fencer.name, fencer.surname, fencer.club, fencer.nationality]
       end
     end
 
@@ -89,17 +89,16 @@ class FencersController < ApplicationController
   private
 
   def safe_params
-    params.require(:fencer).permit(:name, :surname, :second_surname, :nationality, :club)
+    params.require(:fencer).permit(:name, :surname, :nationality, :club)
   end
 
   def create_fencers_from_import(fencer_attrs)
     fencer_attrs.each do |attrs|
       fencer_attr = {}
       fencer_attr[:name] = attrs[0]
-      fencer_attr[:club] = attrs[1]
-      fencer_attr[:surname] = attrs[2]
-      fencer_attr[:second_surname] = attrs[3]
-      fencer_attr[:nationality] = attrs[4]
+      fencer_attr[:surname] = attrs[1]
+      fencer_attr[:club] = attrs[2]
+      fencer_attr[:nationality] = attrs[3]
 
       Fencer.create(fencer_attr)
     end
