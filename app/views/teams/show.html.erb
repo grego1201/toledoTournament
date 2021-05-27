@@ -2,8 +2,11 @@
 
 <ul>
   <% @team.fencers.each do |fencer| %>
-    <li> <%= fencer.name %> - <%= fencer.club %></li>
+    <li> <%= fencer.name %> <%= fencer.surname %> - <%= fencer.club %> - <%= fencer.nationality %></li>
   <% end %>
+
+  <li> Poule: <a href="<%= poule_path(@team.poule_id) %>" ><%= @team.poule_id %></a> Pista: <%= %></li>
+  <li> Grupo: <%= nil %> </li>
 </ul>
 
 <% if user_signed_in? %>
