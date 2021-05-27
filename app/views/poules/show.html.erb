@@ -1,12 +1,12 @@
 <h1><%= @poule.id %></h1>
 
 <div class='table-responsive'>
-  <table class="table table-striped">
+  <table class="table table-striped table-bordered">
     <thead>
       <tr>
         <th scope="col"><%= "Poule No #{@poule.id}" %></th>
 
-        <% (@poule.teams.count + 3).times do |_| %>
+        <% (@poule.teams.count + 2).times do |_| %>
           <th scope="col"></th>
         <% end %>
 
@@ -16,11 +16,15 @@
       </tr>
     </thead>
     <tbody>
-      <% @poule_results.each do |result| %>
+      <% @poule_results.each_with_index do |result, result_index| %>
         <tr>
           <th scope="row"><%= result.first %>
-          <% result[1..-1].each do |cell_value| %>
-            <td> <%= cell_value %></td>
+          <% result[1..-1].each_with_index do |cell_value, cell_index| %>
+            <td class='<%= cell_index != 0 && cell_index < (result.count - 5) && cell_index - 1 == result_index ?
+              'bg-secondary' :
+              ''%>'>
+              <%= cell_value %>
+            </td>
           <% end %>
         </tr>
       <% end %>
