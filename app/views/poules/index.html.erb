@@ -19,4 +19,11 @@
   <% end %>
 <% end %>
 
-
+<h1> Classification </h1>
+<ul class="list-group">
+  <% @classification.each_with_index do |value, index| %>
+    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
+      <%= index %>. <%= value.first %> --> <%= value.second.first %> / <%= value.second.second %> / <%= value.second.third %>
+    </li>
+  <% end %>
+</ul>
