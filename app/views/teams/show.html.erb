@@ -5,7 +5,11 @@
     <li> <%= fencer.name %> <%= fencer.surname %> - <%= fencer.club %> - <%= fencer.nationality %></li>
   <% end %>
 
-  <li> Poule: <a href="<%= poule_path(@team.poule_id) %>" ><%= @team.poule_id %></a> Pista: <%= %></li>
+  <% if @team.poule_id %>
+    <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= nil %></li>
+  <% else %>
+    <li> Poule: Pista: <%= nil %></li>
+  <% end %>
   <li> Grupo: <%= nil %> </li>
 </ul>
 
