@@ -54,8 +54,8 @@ class PoulesController < ApplicationController
     splitted_results = poule_results.split(',')
     poule_matches.keys.sort.each_with_index do |key, index|
       result = splitted_results[index].delete(' ')
-      victory = result.include?('V') || result.to_i == 20
-      new_results[key] = [victory, result]
+      victory = result.upcase.include?('V') || result.to_i == 20
+      new_results[key] = [victory, result.gsub(/[^0-9]/, '')]
     end
 
     poule.poule_matches.merge!({team_id.to_sym => new_results})
