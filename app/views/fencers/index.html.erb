@@ -1,5 +1,39 @@
 <h1>Fencers</h1>
 
+<%= form_with url: '/fencers', method: :get do |form| %>
+  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Name</div>
+      </div>
+      <%= form.text_field :name, { class: 'form-control', placeholder: 'Name', aria: { describedby: 'btnGroupAddon', label: 'Name'} } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Surname</div>
+      </div>
+      <%= form.text_field :surname, { class: 'form-control', placeholder: 'Surname', aria: { describedby: 'btnGroupAddon', label: 'Surname'} } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Club</div>
+      </div>
+      <%= form.text_field :club, { class: 'form-control', placeholder: 'Club', aria: { describedby: 'btnGroupAddon', label: 'Club'} } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Nationality</div>
+      </div>
+      <%= form.text_field :nationality, { class: 'form-control', placeholder: 'Nationality', aria: { describedby: 'btnGroupAddon', label: 'Nationality'} } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+<% end %>
+
 <ul class="list-group">
   <% @fencers.each_with_index do |fencer, index| %>
     <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
