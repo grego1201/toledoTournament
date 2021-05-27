@@ -6,7 +6,7 @@
       <tr>
         <th scope="col"><%= "Poule No #{@poule.id}" %></th>
 
-        <% ((@poule.teams.count + 3)).times do |_| %>
+        <% (@poule.teams.count + 3).times do |_| %>
           <th scope="col"></th>
         <% end %>
 

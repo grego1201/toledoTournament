@@ -118,7 +118,7 @@ class PoulesController < ApplicationController
     end
 
     team_index = poule.team_ids.map(&:to_s).sort.find_index(team_id)
-    match_results.insert(team_index, [nil, nil])
+    match_results.insert(team_index, [nil])
   end
 
   def team_statistics(team_id, values, poule)
