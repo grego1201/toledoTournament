@@ -1,6 +1,7 @@
 class PoulesController < ApplicationController
   def index
     @poules = Poule.all
+    @classification = calculcate_classification
   end
 
   def show
@@ -64,6 +65,14 @@ class PoulesController < ApplicationController
   end
 
   def calculcate_classification
+    team_results = {}
+    Poule.all.each do |poule|
+      poule.poule_matches.keys.each do |team_id|
+        team_results[team_id] = team_statistics(team_id, poule.poule_matches[team_id], poule)
+      end
+    end
+
+    team_results.to_a.sort_by { |k| [k[1][0], k[1][1], k[1][2]] }.reverse
   end
 
   private

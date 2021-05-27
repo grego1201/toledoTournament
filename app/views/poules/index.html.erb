@@ -17,11 +17,13 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
   <% end %>
-
-  <%= form_with url: '/calculate_poule_classification', method: :post do |form| %>
-    <button type="submit" class="btn btn-primary">Update classification</button>
-  <% end %>
-
 <% end %>
 
-
+<h1> Classification </h1>
+<ul class="list-group">
+  <% @classification.each_with_index do |value, index| %>
+    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
+      <%= index %>. <%= value.first %> --> <%= value.second.first %> / <%= value.second.second %> / <%= value.second.third %>
+    </li>
+  <% end %>
+</ul>
