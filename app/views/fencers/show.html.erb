@@ -1,9 +1,22 @@
 <h1><%= @fencer.name %></h1>
 
-<p><%= @fencer.club %></p>
-<p><%= @fencer.surname %></p>
-<p><%= @fencer.nationality %></p>
+<p>Club: <%= @fencer.club %></p>
+<p>Surname:  <%= @fencer.surname %></p>
+<p>Nationality: <%= @fencer.nationality %></p>
 
+<h2> Team </h2>
+<ul>
+  <% @team.fencers.each do |fencer| %>
+    <li> <%= fencer.name %> <%= fencer.surname %> - <%= fencer.club %> - <%= fencer.nationality %></li>
+  <% end %>
+
+  <% if @team.poule_id %>
+    <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= nil %></li>
+  <% else %>
+    <li> Poule: Pista: <%= nil %></li>
+  <% end %>
+  <li> Grupo: <%= nil %> </li>
+</ul>
 
 <% if user_signed_in? %>
   <ul>

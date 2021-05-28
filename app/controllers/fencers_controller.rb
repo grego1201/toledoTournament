@@ -11,6 +11,7 @@ class FencersController < ApplicationController
 
   def show
     @fencer = Fencer.find(params[:id])
+    @team = @fencer.team
   end
 
   def new

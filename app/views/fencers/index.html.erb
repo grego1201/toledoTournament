@@ -37,7 +37,7 @@
 <ul class="list-group">
   <% @fencers.each_with_index do |fencer, index| %>
     <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
-      <%= link_to fencer.name, fencer %>
+      <%= link_to "#{fencer.name} #{fencer.surname} - #{fencer.club} - #{fencer.nationality}", fencer %>
     </li>
   <% end %>
 </ul>
