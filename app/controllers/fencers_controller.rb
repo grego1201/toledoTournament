@@ -2,10 +2,11 @@ class FencersController < ApplicationController
   def index
     filter_params = params.permit(:name, :surname, :club, :nationality)
     @fencers = Fencer.all
-    @fencers = @fencers.where(name: filter_params[:name]) unless filter_params[:name].blank?
-    @fencers = @fencers.where(surname: filter_params[:surname]) unless filter_params[:surname].blank?
-    @fencers = @fencers.where(club: filter_params[:club]) unless filter_params[:club].blank?
-    @fencers = @fencers.where(nationality: filter_params[:nationality]) unless filter_params[:nationality].blank?
+    @old_params = filter_params
+    @fencers = @fencers.where("lower(name) = ?", filter_params[:name].downcase) unless filter_params[:name].blank?
+    @fencers = @fencers.where("lower(surname) = ?", filter_params[:surname].downcase) unless filter_params[:surname].blank?
+    @fencers = @fencers.where("lower(club) = ?", filter_params[:club].downcase) unless filter_params[:club].blank?
+    @fencers = @fencers.where("lower(nationality) = ?", filter_params[:nationality].downcase) unless filter_params[:nationality].blank?
   end
 
   def show
