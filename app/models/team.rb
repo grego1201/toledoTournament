@@ -1,4 +1,46 @@
 class Team < ApplicationRecord
+  NAMES = [
+    'Ada E. Yonath',
+    'Almudena Cid',
+    'Amaya Valdemoro',
+    'Ana Peleteiro',
+    'Arantxa Sánchez',
+    'Barbara McClintock',
+    'Blanca Fernandez',
+    'Carol Greider',
+    'Carolina Marin',
+    'Conchita Martinez',
+    'Dorothy Crowfoot Hodgkin',
+    'Elizabeth Blackwell',
+    'Florence Nightingale',
+    'Francoise Barre-Snoussi',
+    'Garbiñe Muguruza',
+    'Gemma Mengual',
+    'Gertrude Belle',
+    'Gerty Cori',
+    'Gisela Pulido',
+    'Jennifer Hermoso',
+    'Jennifer Pareja',
+    'Laia Palau',
+    'Laia Sanz',
+    'Linda Diane Buck',
+    'Lydia Valentin',
+    'Maialen Chourraut',
+    'Margaret Sanger',
+    'Margarita Salas',
+    'Marie Curie',
+    'May Britt Moser',
+    'Merit Ptah',
+    'Metrodora',
+    'Mireia Belmonte',
+    'Ona Carbonell',
+    'Rita Levi-Montalcini',
+    'Rosalind Franklin',
+    'Ruth Beitia',
+    'Sandra Sanchez',
+    'Teresa Perales'
+  ]
+
   has_many :fencers
   has_and_belongs_to_many :matches
   belongs_to :poule, optional: true
