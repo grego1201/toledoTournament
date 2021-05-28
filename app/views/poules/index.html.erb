@@ -23,7 +23,7 @@
 <ul class="list-group">
   <% @classification.each_with_index do |value, index| %>
     <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
-      <%= index %>. <%= value.first %> --> <%= value.second.first %> / <%= value.second.second %> / <%= value.second.third %>
+      <%= index + 1 %>. <%= link_to "#{value.first} #{@team_names_by_id[value.first.to_i]}", team_path(value.first) %> --> <%= value.second.first %> / <%= value.second.second %> / <%= value.second.third %>
     </li>
   <% end %>
 </ul>

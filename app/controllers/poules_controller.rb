@@ -2,6 +2,7 @@ class PoulesController < ApplicationController
   def index
     @poules = Poule.all
     @classification = calculcate_classification
+    @team_names_by_id = team_names_by_id
   end
 
   def show
@@ -99,7 +100,7 @@ class PoulesController < ApplicationController
   def calculate_results_from_poule
     @poule.poule_matches.sort.to_h.map do |key, value|
       [
-        key,
+        team_index_name(key),
         nil,
         team_match_results(key, value, @poule),
         nil,
@@ -140,5 +141,18 @@ class PoulesController < ApplicationController
 
     victory_percent = victories == 0 ? 0 : victories/(values.count-1).to_f
     [victory_percent, hit_points - received_points, hit_points]
+  end
+
+  def team_index_name(key)
+    team = Team.find(key)
+    "#{team.id}. #{team.name}"
+  end
+
+  def team_names_by_id
+    {}.tap do |names|
+      Team.all.pluck(:id, :name).each do |id, name|
+        names[id] = name
+      end
+    end
   end
 end
