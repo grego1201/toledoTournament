@@ -82,7 +82,9 @@ class TeamsController < ApplicationController
       clubs.except!(first_club_key) if clubs[first_club_key].size.zero?
       clubs.except!(second_club_key) if clubs[second_club_key].size.zero?
 
-      Team.create(fencer_ids: [first_fencer, second_fencer])
+      team_name = obtain_available_team_name
+
+      Team.create(fencer_ids: [first_fencer, second_fencer], name: team_name)
     end
 
     if clubs.length > 0
@@ -110,5 +112,11 @@ class TeamsController < ApplicationController
     without_team_ids = Fencer.without_team.ids
     fencer_ids = @team&.fencer_ids + without_team_ids
     Fencer.where(id: fencer_ids)
+  end
+
+  def obtain_available_team_name
+    names_with_team = Team.all.pluck(:name)
+    available_team_names = Team::NAMES - names_with_team
+    available_team_names&.sample
   end
 end

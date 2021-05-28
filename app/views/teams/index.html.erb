@@ -3,7 +3,7 @@
 <ul class="list-group">
   <% @teams.each_with_index do |team, index| %>
     <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
-      <%= link_to team.id, team %>
+      <%= link_to "#{team.id}. #{team.name}", team %>
       <% team.fencers.each do |fencer| %>
         <%= fencer.name %> <%= fencer.surname %> - <%= fencer.club %> ||
       <% end %>

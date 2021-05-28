@@ -10,6 +10,7 @@
     <li> <%= fencer.name %> <%= fencer.surname %> - <%= fencer.club %> - <%= fencer.nationality %></li>
   <% end %>
 
+  <li> Name: <%= @team.name %> </li>
   <% if @team.poule_id %>
     <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= nil %></li>
   <% else %>
