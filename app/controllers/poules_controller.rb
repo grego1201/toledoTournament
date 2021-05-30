@@ -1,8 +1,6 @@
 class PoulesController < ApplicationController
   def index
     @poules = Poule.all
-    @classification = calculcate_classification
-    @team_names_by_id = team_names_by_id
   end
 
   def show
@@ -20,6 +18,12 @@ class PoulesController < ApplicationController
     else
       render :show
     end
+  end
+
+  def classification
+    @poules = Poule.all
+    @classification = calculcate_classification
+    @team_names_by_id = team_names_by_id
   end
 
   def generate_random_poules

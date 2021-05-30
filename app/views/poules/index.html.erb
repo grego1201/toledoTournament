@@ -18,12 +18,3 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   <% end %>
 <% end %>
-
-<h1> Classification </h1>
-<ul class="list-group">
-  <% @classification.each_with_index do |value, index| %>
-    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
-      <%= index + 1 %>. <%= link_to "#{value.first} #{@team_names_by_id[value.first.to_i]}", team_path(value.first) %> --> <%= value.second.first %> / <%= value.second.second %> / <%= value.second.third %>
-    </li>
-  <% end %>
-</ul>

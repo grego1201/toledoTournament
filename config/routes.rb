@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   post '/generate_random_poules', to: 'poules#generate_random_poules'
   post '/add_poule_result/:id', to: 'poules#add_poule_result'
   post '/generate_groups', to: 'elimination_groups#generate'
+  get '/classification', to: 'poules#classification'
 end
