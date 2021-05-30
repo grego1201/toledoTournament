@@ -11,6 +11,17 @@ class PoulesController < ApplicationController
     @teams = @poule.teams
   end
 
+  def update
+    @poule = Poule.find(params[:id])
+    update_params = params.permit(:piste)
+
+    if @poule.update(update_params)
+      redirect_to @poule
+    else
+      render :show
+    end
+  end
+
   def generate_random_poules
     Poule.destroy_all
 
