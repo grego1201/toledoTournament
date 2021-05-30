@@ -1,6 +1,13 @@
 class PoulesController < ApplicationController
   def index
-    @poules = Poule.all.sort
+    @poules = Poule.all
+    @all_poules = Poule.all
+    @teams = Team.all
+    @old_params = params.permit(:poule_id, :team_name)
+    @poules = @poules.where(id: @old_params[:poule_id].to_i) unless @old_params[:poule_id].blank?
+    @poules = @poules.includes(:teams).where(teams: {name: @old_params[:team_name]}) unless @old_params[:team_name].blank?
+
+    @poules.sort
   end
 
   def show

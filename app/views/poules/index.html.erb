@@ -1,5 +1,26 @@
 <h1>Poules</h1>
 
+
+<%= form_with url: '/poules', method: :get do |form| %>
+  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Poule filters">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Team name</div>
+      </div>
+      <%= form.text_field :team_name, { class: 'form-control', placeholder: 'Team name', aria: { describedby: 'btnGroupAddon', label: 'Team name'}, value: @old_params[:team_name] } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Poule ID</div>
+      </div>
+      <%= form.select :poule_id, options_from_collection_for_select(@all_poules, 'id', 'id', @old_params[:poule_id] || @poules.first.id), {include_blank: true}, { class: 'form-control', include_blank: true } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+<% end %>
+
 <% @poules.each do |poule| %>
   <div class='table-responsive'>
     <table class="table table-striped table-bordered">
