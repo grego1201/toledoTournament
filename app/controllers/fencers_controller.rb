@@ -1,12 +1,15 @@
 class FencersController < ApplicationController
   def index
     filter_params = params.permit(:name, :surname, :club, :nationality)
-    @fencers = Fencer.all
+    @fencers = Fencer.page(params[:page] || 1).per(params[:per_page] || 25)
     @old_params = filter_params
     @fencers = @fencers.where("lower(name) = ?", filter_params[:name].downcase) unless filter_params[:name].blank?
     @fencers = @fencers.where("lower(surname) = ?", filter_params[:surname].downcase) unless filter_params[:surname].blank?
     @fencers = @fencers.where("lower(club) = ?", filter_params[:club].downcase) unless filter_params[:club].blank?
     @fencers = @fencers.where("lower(nationality) = ?", filter_params[:nationality].downcase) unless filter_params[:nationality].blank?
+
+    @per_page = @old_params[:per_page] || 25
+    @pages = Fencer.count % @per_page
   end
 
   def show
