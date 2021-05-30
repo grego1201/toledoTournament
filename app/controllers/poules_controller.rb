@@ -1,6 +1,6 @@
 class PoulesController < ApplicationController
   def index
-    @poules = Poule.all
+    @poules = Poule.all.sort
   end
 
   def show

@@ -1,12 +1,37 @@
 <h1>Poules</h1>
 
-<ul class="list-group">
-  <% @poules.each_with_index do |poule, index| %>
-    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
-      <%= link_to poule.id, poule %>
-    </li>
-  <% end %>
-</ul>
+<% @poules.each do |poule| %>
+  <div class='table-responsive'>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr class='table-primary'>
+        <th scope="col">Poule No <%= link_to poule.id, poule %>. Piste: <%= poule.piste %></th>
+          <% (poule.teams.count + 2).times do |_| %>
+            <th scope="col"></th>
+          <% end %>
+
+          <th scope="col">V/M</th>
+          <th scope="col">TD-TR</th>
+          <th scope="col">TD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% calculate_results_from_poule(poule.id).each_with_index do |result, result_index| %>
+          <tr>
+            <th scope="row"><%= result.first %>
+            <% result[1..-1].each_with_index do |cell_value, cell_index| %>
+              <td class='<%= cell_index != 0 && cell_index < (result.count - 5) && cell_index - 1 == result_index ?
+                'bg-secondary' :
+                ''%>'>
+                <%= cell_value %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 
 <% if user_signed_in? %>
   <%= form_with url: '/generate_random_poules', method: :post do |form| %>
