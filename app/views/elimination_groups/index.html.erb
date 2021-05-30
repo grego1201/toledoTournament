@@ -1,0 +1,18 @@
+<h1>Groups</h1>
+
+<ul class="list-group">
+  <% @groups.each_with_index do |group, index| %>
+    <h2> Grupo <%= index + 1 %></h2>
+    <% group.tableaus.each do |size, teams| %>
+      <% teams.each do |position, team_id| %>
+        <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
+          <%= position %>. <%= link_to team_name(team_id), team_path(team_id) %> <%= team_fencer_names(team_id) %>
+        </li>
+      <% end %>
+    <% end %>
+  <% end %>
+</ul>
+
+<% if user_signed_in? %>
+  <%= link_to 'Generate groups from classification', generate_groups_path, method: :post %>
+<% end %>

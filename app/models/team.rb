@@ -44,6 +44,7 @@ class Team < ApplicationRecord
   has_many :fencers
   has_and_belongs_to_many :matches
   belongs_to :poule, optional: true
+  belongs_to :elimination_group, optional: true
 
   validate :check_fencers
 
