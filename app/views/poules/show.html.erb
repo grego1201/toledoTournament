@@ -33,6 +33,16 @@
 </div>
 
 <% if user_signed_in? %>
+  <h1> Add poule piste </h1>
+  <%= form_with url: "/poules/#{@poule.id}", method: :patch do |form| %>
+    <div class="form-group">
+      <%= form.label :piste %>
+      <%= form.number_field :piste, { class: 'form-control' } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  <% end %>
+
   <h1> Add poule results </h1>
 
   <%= form_with url: "/add_poule_result/#{@poule.id}", method: :post do |form| %>
