@@ -12,9 +12,9 @@
 
   <li> Name: <%= @team.name %> </li>
   <% if @team.poule_id %>
-    <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= nil %></li>
+    <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= @team.poule&.piste %></li>
   <% else %>
-    <li> Poule: Pista: <%= nil %></li>
+    <li> Poule: Pista: <%= @team.poule&.piste %></li>
   <% end %>
   <li> Grupo: <%= nil %> </li>
 </ul>
