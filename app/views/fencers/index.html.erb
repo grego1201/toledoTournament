@@ -30,6 +30,13 @@
       <%= form.text_field :nationality, { class: 'form-control', placeholder: 'Nationality', aria: { describedby: 'btnGroupAddon', label: 'Nationality'}, value: @old_params[:nationality] } %>
     </div>
 
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Per page</div>
+      </div>
+      <%= form.number_field :per_page, { class: 'form-control', aria: { describedby: 'btnGroupAddon', label: 'Per page'}, value: @per_page } %>
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 <% end %>
