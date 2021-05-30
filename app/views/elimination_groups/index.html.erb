@@ -1,0 +1,5 @@
+<h1>Groups</h1>
+
+<% if user_signed_in? %>
+  <%= link_to 'Generate groups from classification', generate_groups_path, method: :post %>
+<% end %>
