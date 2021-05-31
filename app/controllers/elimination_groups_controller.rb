@@ -33,7 +33,7 @@ class EliminationGroupsController < ApplicationController
     groups.each do |group|
       team_ids = group.map(&:first)
       tableau_size = Math.log2(team_ids.count).floor
-      tableau_size +=1 unless full_size_tableaus.include?(tableau_size)
+      tableau_size +=1 unless full_size_tableaus.include?(team_ids.count)
       tableau_size = 2**(tableau_size)
 
       tableau_teams = {}
