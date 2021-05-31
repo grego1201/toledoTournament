@@ -98,7 +98,9 @@ class TeamsController < ApplicationController
         second_fencer = same_team_fencers.sample
         same_team_fencers.delete(second_fencer)
 
-        Team.create(fencer_ids: [first_fencer, second_fencer])
+        team_name = obtain_available_team_name
+
+        Team.create(fencer_ids: [first_fencer, second_fencer], name: team_name)
       end
     end
 
