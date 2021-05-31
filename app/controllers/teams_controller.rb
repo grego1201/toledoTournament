@@ -52,6 +52,9 @@ class TeamsController < ApplicationController
 
   def generate_random_teams
     Team.destroy_all
+    Poule.destroy_all
+    EliminationGroup.destroy_all
+
     Fencer.where.not(team_id: nil).update_all(team_id: nil)
 
     clubs = {}
