@@ -1,12 +1,58 @@
 <h1>Poules</h1>
 
-<ul class="list-group">
-  <% @poules.each_with_index do |poule, index| %>
-    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
-      <%= link_to poule.id, poule %>
-    </li>
-  <% end %>
-</ul>
+
+<%= form_with url: '/poules', method: :get do |form| %>
+  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Poule filters">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Team name</div>
+      </div>
+      <%= form.text_field :team_name, { class: 'form-control', placeholder: 'Team name', aria: { describedby: 'btnGroupAddon', label: 'Team name'}, value: @old_params[:team_name] } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Poule ID</div>
+      </div>
+      <%= form.select :poule_id, options_from_collection_for_select(@all_poules, 'id', 'id', @old_params[:poule_id] || @poules.first&.id), {include_blank: true}, { class: 'form-control', include_blank: true } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+<% end %>
+
+<% @poules.each do |poule| %>
+  <div class='table-responsive'>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr class='table-primary'>
+        <th scope="col">Poule No <%= link_to poule.id, poule %>. Piste: <%= poule.piste %></th>
+          <% (poule.teams.count + 2).times do |_| %>
+            <th scope="col"></th>
+          <% end %>
+
+          <th scope="col">V/M</th>
+          <th scope="col">TD-TR</th>
+          <th scope="col">TD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% calculate_results_from_poule(poule.id).each_with_index do |result, result_index| %>
+          <tr>
+            <th scope="row"><%= result.first %>
+            <% result[1..-1].each_with_index do |cell_value, cell_index| %>
+              <td class='<%= cell_index != 0 && cell_index < (result.count - 5) && cell_index - 1 == result_index ?
+                'bg-secondary' :
+                ''%>'>
+                <%= cell_value %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 
 <% if user_signed_in? %>
   <%= form_with url: '/generate_random_poules', method: :post do |form| %>
@@ -18,12 +64,3 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   <% end %>
 <% end %>
-
-<h1> Classification </h1>
-<ul class="list-group">
-  <% @classification.each_with_index do |value, index| %>
-    <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
-      <%= index + 1 %>. <%= link_to "#{value.first} #{@team_names_by_id[value.first.to_i]}", team_path(value.first) %> --> <%= value.second.first %> / <%= value.second.second %> / <%= value.second.third %>
-    </li>
-  <% end %>
-</ul>

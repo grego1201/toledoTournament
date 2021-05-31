@@ -1,14 +1,19 @@
 class PoulesController < ApplicationController
   def index
     @poules = Poule.all
-    @classification = calculcate_classification
-    @team_names_by_id = team_names_by_id
+    @all_poules = Poule.all || []
+    @teams = Team.all
+    @old_params = params.permit(:poule_id, :team_name)
+    @poules = @poules.where(id: @old_params[:poule_id].to_i) unless @old_params[:poule_id].blank?
+    @poules = @poules.includes(:teams).where(teams: {name: @old_params[:team_name]}) unless @old_params[:team_name].blank?
+
+    @poules.sort
   end
 
   def show
     @poule = Poule.find(params[:id])
     @poule_results = calculate_results_from_poule
-    @teams = @poule.teams
+    @teams = @poule.teams || []
   end
 
   def update
@@ -20,6 +25,12 @@ class PoulesController < ApplicationController
     else
       render :show
     end
+  end
+
+  def classification
+    @poules = Poule.all
+    @classification = calculcate_classification
+    @team_names_by_id = team_names_by_id
   end
 
   def generate_random_poules
