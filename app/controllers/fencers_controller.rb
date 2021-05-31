@@ -59,6 +59,12 @@ class FencersController < ApplicationController
       @export_text += "#{fencer.name},#{fencer.surname},#{fencer.club},#{fencer.nationality};"
     end
 
+    @old_params = {}
+
+    @fencers = Fencer.page(params[:page] || 1).per(params[:per_page] || 25)
+    @per_page = @old_params[:per_page] || 25
+    @pages = Fencer.count % @per_page
+
     render :index
   end
 
