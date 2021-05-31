@@ -71,4 +71,41 @@ module ApplicationHelper
     victory_percent = victories == 0 ? 0 : victories/(values.count).to_f
     [victory_percent, hit_points - received_points, hit_points]
   end
+
+  def body_tags
+    tableaus = @group.tableaus
+    @tableau_8 = tableaus['8']
+    @tableau_semi = tableaus['4']
+    @tableau_final = tableaus['2']
+    @tableau_winner = tableaus['1']
+
+    @tableaus = []
+    15.times do |index|
+      @tableaus.insert(index, [])
+    end
+
+    add_tableau(2, 0, 0, @tableau_8)
+    add_tableau(4, 1, 1, @tableau_8)
+    add_tableau(8, 3, 2, @tableau_8)
+    add_tableau(16, 7, 3, @tableau_8)
+
+    tag.tbody do
+      @tableaus.map do |row|
+        tag.tr do
+          row.join.html_safe
+        end
+      end.join.html_safe
+    end
+  end
+
+  def add_tableau(mod, mod_result, position, tableau)
+    15.times do |index|
+      if index % mod == mod_result
+        tableau_index = ((index/2)+1).to_s
+        @tableaus[index].insert(position, tag.td(tableau[tableau_index]))
+      else
+        @tableaus[index].insert(position, tag.td)
+      end
+    end
+  end
 end

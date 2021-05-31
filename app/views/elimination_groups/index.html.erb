@@ -2,7 +2,7 @@
 
 <ul class="list-group">
   <% @groups.each_with_index do |group, index| %>
-    <h2> Grupo <%= index + 1 %></h2>
+    <h2> <%= link_to "Grupo #{index + 1}", group %></h2>
     <% group.tableaus.each do |size, teams| %>
       <% teams.each do |position, team_id| %>
         <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
