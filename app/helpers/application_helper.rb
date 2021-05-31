@@ -1,11 +1,15 @@
 module ApplicationHelper
   def team_name(team_id)
-    team = Team.find(team_id)
+    team = Team.find_by(id: team_id)
+    return '' if team.nil?
+
     team.name || team.id
   end
 
   def team_fencer_names(team_id)
-    team = Team.find(team_id)
+    team = Team.find_by(id: team_id)
+    return '' if team.nil?
+
     names = ""
     team.fencers.each do |fencer|
       names += "|| #{fencer.name} #{fencer.surname} - #{fencer.club} "
@@ -28,7 +32,9 @@ module ApplicationHelper
   end
 
   def team_index_name(key)
-    team = Team.find(key)
+    team = Team.find_by(id: key)
+    return '' if team.nil?
+
     "#{team.id}. #{team.name}"
   end
 
@@ -42,7 +48,7 @@ module ApplicationHelper
     end
 
     team_index = poule.team_ids.map(&:to_s).sort.find_index(team_id)
-    match_results.insert(team_index, [nil])
+    match_results.insert(team_index || 0, [nil])
   end
 
   def team_statistics(team_id, values, poule)

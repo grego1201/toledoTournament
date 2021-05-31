@@ -1,7 +1,7 @@
 class PoulesController < ApplicationController
   def index
     @poules = Poule.all
-    @all_poules = Poule.all
+    @all_poules = Poule.all || []
     @teams = Team.all
     @old_params = params.permit(:poule_id, :team_name)
     @poules = @poules.where(id: @old_params[:poule_id].to_i) unless @old_params[:poule_id].blank?
@@ -13,7 +13,7 @@ class PoulesController < ApplicationController
   def show
     @poule = Poule.find(params[:id])
     @poule_results = calculate_results_from_poule
-    @teams = @poule.teams
+    @teams = @poule.teams || []
   end
 
   def update
