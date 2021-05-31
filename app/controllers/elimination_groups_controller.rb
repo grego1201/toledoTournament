@@ -3,6 +3,10 @@ class EliminationGroupsController < ApplicationController
     @groups = EliminationGroup.all
   end
 
+  def show
+    @group = EliminationGroup.find(params[:id])
+  end
+
   def generate
     EliminationGroup.destroy_all
     classification = PoulesController.new.calculcate_classification
