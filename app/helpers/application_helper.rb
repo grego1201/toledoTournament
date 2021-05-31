@@ -74,7 +74,7 @@ module ApplicationHelper
 
   def body_tags
     tableaus = @group.tableaus
-    @tableau_8 = tableaus['8']
+    @tableau_8 = tableaus['8'] || generate_tableau_8_from_4(tableaus['4'])
     @tableau_semi = tableaus['4'] || {}
     @tableau_final = tableaus['2'] || {}
     @tableau_winner = tableaus['1'] || {}
@@ -95,6 +95,14 @@ module ApplicationHelper
           row.join.html_safe
         end
       end.join.html_safe
+    end
+  end
+
+  def generate_tableau_8_from_4(old_tableau)
+    {}.tap do |tableau|
+      4.times do |index|
+        tableau[((index * 2) + 1).to_s] = old_tableau[(index + 1).to_s]
+      end
     end
   end
 
