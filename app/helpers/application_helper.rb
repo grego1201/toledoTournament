@@ -85,9 +85,9 @@ module ApplicationHelper
     end
 
     add_tableau(2, 0, 0, @tableau_8)
-    add_tableau(4, 1, 1, @tableau_8)
-    add_tableau(8, 3, 2, @tableau_8)
-    add_tableau(16, 7, 3, @tableau_8)
+    add_tableau(4, 1, 1, @tableau_semi)
+    add_tableau(8, 3, 2, @tableau_final)
+    add_tableau(16, 7, 3, @tableau_winner)
 
     tag.tbody do
       @tableaus.map do |row|
@@ -101,9 +101,13 @@ module ApplicationHelper
   def add_tableau(mod, mod_result, position, tableau)
     15.times do |index|
       if index % mod == mod_result
-        tableau_index = ((index/2)+1).to_s
+        tableau_index = ((index/mod)+1).to_s
         team_id = tableau[tableau_index]
-        cell_content = tag.a(" #{team_id}. #{team_name(team_id)}", href: team_path(team_id) )
+        cell_content = if team_id
+                         tag.a(" #{team_id}. #{team_name(team_id)}", href: team_path(team_id) )
+                       else
+                         nil
+                       end
 
         @tableaus[index].insert(position, tag.td(cell_content, class: 'table-secondary'))
       else
