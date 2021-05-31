@@ -5,6 +5,23 @@ class EliminationGroupsController < ApplicationController
 
   def show
     @group = EliminationGroup.find(params[:id])
+    @tableau_size = [8, 4, 2, 1]
+    @positions = [*1..8]
+    @team_ids = @group.team_ids
+  end
+
+  def add_group_result
+    @group = EliminationGroup.find(params[:id])
+
+    safe_params = params.permit(:tableau, :position, :team_id)
+    old_tableaus = @group.tableaus
+    old_tableau = old_tableaus[safe_params[:tableau]] || {}
+    old_tableau[safe_params[:position]] = safe_params[:team_id]
+
+    @group.tableaus.merge!({safe_params[safe_params[:tableau]] => old_tableau})
+    @group.save
+
+    redirect_to @group
   end
 
   def generate

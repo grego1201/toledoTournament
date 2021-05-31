@@ -11,3 +11,29 @@
     <%= body_tags %>
   </table>
 </div>
+
+<% if user_signed_in? %>
+  <%= form_with url: "/add_group_result/#{@group.id}", method: :post do |form| %>
+    <%= form.label :tableau %><br>
+    <%= form.select :tableau,
+      options_for_select(@tableau_size, nil),
+      {},
+      { class: 'form-control', required: true, include_blank: true } %>
+
+    <%= form.label :position %><br>
+    <%= form.select :position,
+      options_for_select(@positions, nil),
+      {},
+      { class: 'form-control', required: true, include_blank: true } %>
+
+
+
+    <%= form.label :team_id %><br>
+    <%= form.select :team_id,
+      options_for_select(@team_ids, nil),
+      {},
+      { class: 'form-control', required: true, include_blank: true } %>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  <% end %>
+<% end %>
