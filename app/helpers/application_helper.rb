@@ -75,9 +75,9 @@ module ApplicationHelper
   def body_tags
     tableaus = @group.tableaus
     @tableau_8 = tableaus['8']
-    @tableau_semi = tableaus['4']
-    @tableau_final = tableaus['2']
-    @tableau_winner = tableaus['1']
+    @tableau_semi = tableaus['4'] || {}
+    @tableau_final = tableaus['2'] || {}
+    @tableau_winner = tableaus['1'] || {}
 
     @tableaus = []
     15.times do |index|
