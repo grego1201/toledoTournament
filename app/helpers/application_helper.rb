@@ -102,10 +102,17 @@ module ApplicationHelper
     15.times do |index|
       if index % mod == mod_result
         tableau_index = ((index/2)+1).to_s
-        @tableaus[index].insert(position, tag.td(tableau[tableau_index]))
+        team_id = tableau[tableau_index]
+        cell_content = tag.a(" #{team_id}. #{team_name(team_id)}", href: team_path(team_id) )
+
+        @tableaus[index].insert(position, tag.td(cell_content, class: 'table-secondary'))
       else
-        @tableaus[index].insert(position, tag.td)
+        @tableaus[index].insert(position, tag.td('', class: 'table-default'))
       end
     end
+  end
+
+  def parse_team(team_id)
+    team = Team.find(team_id)
   end
 end
