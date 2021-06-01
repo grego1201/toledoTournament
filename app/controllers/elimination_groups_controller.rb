@@ -18,7 +18,7 @@ class EliminationGroupsController < ApplicationController
     old_tableau = old_tableaus[safe_params[:tableau]] || {}
     old_tableau[safe_params[:position]] = safe_params[:team_id]
 
-    @group.tableaus.merge!({safe_params[safe_params[:tableau]] => old_tableau})
+    @group.tableaus.merge!({safe_params[:tableau] => old_tableau})
     @group.save
 
     redirect_to @group
