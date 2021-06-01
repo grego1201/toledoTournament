@@ -1,4 +1,30 @@
 module ApplicationHelper
+  TABLEAU_EQUIVALENCES = {
+    8 => {
+      1=> 1,
+      2=> 8,
+      3=> 5,
+      4=> 4,
+      5=> 3,
+      6=> 6,
+      7=> 7,
+      8=> 2
+    },
+    4=> {
+      1=> 1,
+      2=> 4,
+      3=> 3,
+      4=> 2
+    },
+    2=> {
+      1=> 1,
+      2=> 2
+    },
+    1=> {
+      1=> 1
+    }
+  }
+
   def team_name(team_id)
     team = Team.find_by(id: team_id)
     return '' if team.nil?
@@ -84,10 +110,10 @@ module ApplicationHelper
       @tableaus.insert(index, [])
     end
 
-    add_tableau(2, 0, 0, @tableau_8)
-    add_tableau(4, 1, 1, @tableau_semi)
-    add_tableau(8, 3, 2, @tableau_final)
-    add_tableau(16, 7, 3, @tableau_winner)
+    add_tableau(2, 0, 0, @tableau_8, 8)
+    add_tableau(4, 1, 1, @tableau_semi, 4)
+    add_tableau(8, 3, 2, @tableau_final, 2)
+    add_tableau(16, 7, 3, @tableau_winner, 1)
 
     tag.tbody do
       @tableaus.map do |row|
@@ -106,11 +132,11 @@ module ApplicationHelper
     end
   end
 
-  def add_tableau(mod, mod_result, position, tableau)
+  def add_tableau(mod, mod_result, position, tableau, tableau_size)
     15.times do |index|
       if index % mod == mod_result
-        tableau_index = ((index/mod)+1).to_s
-        team_id = tableau[tableau_index]
+        tableau_position = TABLEAU_EQUIVALENCES[tableau_size][(index/mod)+1].to_s
+        team_id = tableau[tableau_position]
         cell_content = if team_id
                          tag.a(" #{team_id}. #{team_name(team_id)}", href: team_path(team_id) )
                        else
