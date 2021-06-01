@@ -115,7 +115,7 @@ module ApplicationHelper
     add_tableau(8, 3, 2, @tableau_final, 2)
     add_tableau(16, 7, 3, @tableau_winner, 1)
 
-    tag.tbody do
+    tag.tbody(style: 'font-size: smaller') do
       @tableaus.map do |row|
         tag.tr do
           row.join.html_safe
@@ -138,14 +138,19 @@ module ApplicationHelper
         tableau_position = TABLEAU_EQUIVALENCES[tableau_size][(index/mod)+1].to_s
         team_id = tableau[tableau_position]
         cell_content = if team_id
-                         tag.a(" #{team_id}. #{team_name(team_id)}", href: team_path(team_id) )
+                         tag.div do
+                           [
+                             tag.a(" #{team_id}. #{team_name(team_id)}", href: team_path(team_id) ),
+                             tag.div(" - #{team_fencer_names(team_id)}")
+                           ].join.html_safe
+                         end
                        else
                          nil
                        end
 
-        @tableaus[index].insert(position, tag.td(cell_content, class: 'table-secondary'))
+        @tableaus[index].insert(position, tag.td(cell_content, class: 'table-secondary', style: 'width: 25%; height: 50px'))
       else
-        @tableaus[index].insert(position, tag.td('', class: 'table-default'))
+        @tableaus[index].insert(position, tag.td('', class: 'table-default', style: 'width: 25%; height: 50px'))
       end
     end
   end
