@@ -24,6 +24,23 @@ class EliminationGroupsController < ApplicationController
     redirect_to @group
   end
 
+  def add_final_classification
+    safe_params = params.permit(:id, :group_classification)
+    @group = EliminationGroup.find(safe_params[:id])
+
+    final_classification = {}
+    safe_params[:group_classification].split(',').each_with_index do |team_id, index|
+      final_classification[index + 1] = team_id.gsub(' ', '')
+    end
+
+    @group.update_column(:final_classification, final_classification)
+    redirect_to @group
+  end
+
+  def final_classification
+    @groups = EliminationGroup.all
+  end
+
   def generate
     EliminationGroup.destroy_all
     classification = PoulesController.new.calculcate_classification

@@ -13,6 +13,7 @@
 </div>
 
 <% if user_signed_in? %>
+  <h3> Add tableau result </h3>
   <%= form_with url: "/add_group_result/#{@group.id}", method: :post do |form| %>
     <%= form.label :tableau %><br>
     <%= form.select :tableau,
@@ -25,9 +26,6 @@
       options_for_select(@positions, nil),
       {},
       { class: 'form-control', required: true, include_blank: true } %>
-
-
-
     <%= form.label :team_id %><br>
     <%= form.select :team_id,
       options_for_select(@team_ids, nil),
@@ -36,4 +34,15 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
   <% end %>
+
+  <h3> Add final classification </h3>
+  <%= form_with url: "/add_final_classification/#{@group.id}", method: :post do |form| %>
+    <div class="form-group">
+      <%= form.label :group_classification %>
+      <%= form.text_field :group_classification, { class: 'form-control', required: true } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  <% end %>
+
 <% end %>

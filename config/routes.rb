@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   post '/generate_groups', to: 'elimination_groups#generate'
   post '/add_group_result/:id', to: 'elimination_groups#add_group_result'
   get '/classification', to: 'poules#classification'
+  get '/final_classification', to: 'elimination_groups#final_classification'
+  post '/add_final_classification/:id', to: 'elimination_groups#add_final_classification'
 end
