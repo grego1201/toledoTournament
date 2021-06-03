@@ -6,8 +6,8 @@
       <tr class='table-primary'>
         <th scope="col"><%= "Poule No #{@poule.id}. Piste: #{@poule.piste}" %></th>
 
-        <% (@poule.teams.count + 2).times do |_| %>
-          <th scope="col"></th>
+        <% (@poule.teams.count + 2).times do |time| %>
+          <th scope="col"><%= [0, @poule.teams.count + 1].include?(time) ? '' : time %></th>
         <% end %>
 
         <th scope="col">V/M</th>
@@ -32,10 +32,22 @@
   </table>
 </div>
 
+<h1> Teams </h1>
 <ul>
   <% @teams.each do |team| %>
     <li>
       <%= team.name %> <%= team_fencer_names(team.id) %>
+    </li>
+  <% end %>
+</ul>
+
+<h1> Assault order </h1>
+<ul>
+  <% @poule.assault_order.each do |key, value| %>
+    <li> <%= key %>:
+      <%= @teams[value['first_team'].to_i - 1].name %>
+      ||
+      <%= @teams[value['second_team'].to_i - 1].name %>
     </li>
   <% end %>
 </ul>

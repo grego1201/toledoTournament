@@ -1,4 +1,10 @@
 class PoulesController < ApplicationController
+  ASSAULT_ORDER = {
+    "5" => ['1/2', '3/4', '5/1', '2/3', '4/5', '1/4', '2/5', '3/1', '3/5', '4/2'],
+    "4" => ['1/4', '2/3', '1/3', '2/4', '3/4', '1/2'],
+    "3" => ['2/1', '3/2', '1/3']
+  }
+
   def index
     @poules = Poule.all
     @all_poules = Poule.all || []
@@ -13,7 +19,7 @@ class PoulesController < ApplicationController
   def show
     @poule = Poule.find(params[:id])
     @poule_results = calculate_results_from_poule
-    @teams = @poule.teams || []
+    @teams = @poule.teams.order(:id) || []
   end
 
   def update
@@ -99,6 +105,7 @@ class PoulesController < ApplicationController
     end
 
     generate_poule_matches
+    generate_poule_assault_order
 
     redirect_to poules_path
   end
@@ -157,15 +164,39 @@ class PoulesController < ApplicationController
     end
   end
 
+  def generate_poule_assault_order
+    Poule.all.each do |poule|
+      team_ids = poule.teams.map(&:id)
+      order = ASSAULT_ORDER[team_ids.count.to_s]
+      assaults_order = {}
+
+      order.each_with_index do |teams, index|
+        team_ids = teams.split('/')
+        first_team = team_ids.sample
+        second_team = (team_ids - [first_team]).first
+        assaults_order[index + 1] = {
+          first_team: first_team,
+          second_team: second_team
+        }
+      end
+
+      poule.assault_order = assaults_order
+      poule.save
+    end
+  end
+
   def calculate_results_from_poule
-    @poule.poule_matches.sort.to_h.map do |key, value|
-      [
-        team_index_name(key),
-        nil,
-        team_match_results(key, value, @poule),
-        nil,
-        team_statistics(key, value, @poule)
-      ].flatten
+    [].tap do |results|
+      @poule.poule_matches.sort.to_h.each_with_index do |value, index|
+        key, value = value
+        results << [
+          team_index_name(key),
+          index + 1,
+          team_match_results(key, value, @poule),
+          nil,
+          team_statistics(key, value, @poule)
+        ].flatten
+      end
     end
   end
 
