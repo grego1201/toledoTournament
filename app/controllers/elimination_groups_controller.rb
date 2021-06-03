@@ -24,6 +24,12 @@ class EliminationGroupsController < ApplicationController
     redirect_to @group
   end
 
+  def add_final_classification
+  end
+
+  def final_classification
+  end
+
   def generate
     EliminationGroup.destroy_all
     classification = PoulesController.new.calculcate_classification
