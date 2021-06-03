@@ -44,29 +44,27 @@ class PoulesController < ApplicationController
       classification_list_text << [team.name, team.fencer_names, value.second.join(' - ')]
     end
 
-    file_path = "classification_#{Time.now.to_i}.pdf"
+    file_path = "tmp/classification_#{Time.now.to_i}.pdf"
 
     Prawn::Document.generate(file_path) do
-      classification_list_text.each_with_index do |text, index|
-        #create a bounding box for the list-item label
-        #float it so that the cursor doesn't move down
-        #float do
-          #bounding_box [15,cursor], :width => 300 do
-            #text "#{index + 1}. "
-          #end
-        #end
+      bounding_box [25,cursor], :width => 600 do
+        text "Posición. " + "Nombre equipo" + "-->" + "V/M - TD-TR - TD"
+      end
 
-                #create a bounding box for the list-item content
+      bounding_box [25,cursor], :width => 600 do
+        text "Nombre tiradoras"
+      end
+
+      move_down(10)
+      classification_list_text.each_with_index do |text, index|
         bounding_box [25,cursor], :width => 600 do
-          text text "#{index + 1}. " + text.first + "-->" + text.third
+          text "#{index + 1}. " + text.first + "-->" + text.third
         end
         bounding_box [25,cursor], :width => 600 do
           text text.second
         end
 
-
-        #provide a space between list-items
-        move_down(5)
+        move_down(10)
       end
     end
 
