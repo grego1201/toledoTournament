@@ -4,20 +4,22 @@
 <p>Surname:  <%= @fencer.surname %></p>
 <p>Nationality: <%= @fencer.nationality %></p>
 
-<h2> Team </h2>
-<ul>
-  <% @team.fencers.each do |fencer| %>
-    <li> <%= fencer.name %> <%= fencer.surname %> - <%= fencer.club %> - <%= fencer.nationality %></li>
-  <% end %>
+<% if @team %>
+  <h2> Team </h2>
+  <ul>
+    <% @team.fencers.each do |fencer| %>
+      <li> <%= fencer.name %> <%= fencer.surname %> - <%= fencer.club %> - <%= fencer.nationality %></li>
+    <% end %>
 
-  <li> Name: <%= @team.name %> </li>
-  <% if @team.poule_id %>
-    <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= @team.poule&.piste %></li>
-  <% else %>
-    <li> Poule: Pista: <%= @team.poule&.piste %></li>
+    <li> Name: <%= @team.name %> </li>
+    <% if @team.poule_id %>
+      <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= @team.poule&.piste %></li>
+    <% else %>
+      <li> Poule: Pista: <%= @team.poule&.piste %></li>
+    <% end %>
+    <li> Grupo: <%= link_to @team.elimination_group.id, @team.elimination_group %> </li>
   <% end %>
-  <li> Grupo: <%= link_to @team.elimination_group.id, @team.elimination_group %> </li>
-</ul>
+  </ul>
 
 <% if user_signed_in? %>
   <ul>
