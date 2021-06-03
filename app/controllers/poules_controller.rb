@@ -158,14 +158,17 @@ class PoulesController < ApplicationController
   end
 
   def calculate_results_from_poule
-    @poule.poule_matches.sort.to_h.map do |key, value|
-      [
-        team_index_name(key),
-        nil,
-        team_match_results(key, value, @poule),
-        nil,
-        team_statistics(key, value, @poule)
-      ].flatten
+    [].tap do |results|
+      @poule.poule_matches.sort.to_h.each_with_index do |value, index|
+        key, value = value
+        results << [
+          team_index_name(key),
+          index + 1,
+          team_match_results(key, value, @poule),
+          nil,
+          team_statistics(key, value, @poule)
+        ].flatten
+      end
     end
   end
 

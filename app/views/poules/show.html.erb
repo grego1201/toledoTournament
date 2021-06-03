@@ -6,8 +6,8 @@
       <tr class='table-primary'>
         <th scope="col"><%= "Poule No #{@poule.id}. Piste: #{@poule.piste}" %></th>
 
-        <% (@poule.teams.count + 2).times do |_| %>
-          <th scope="col"></th>
+        <% (@poule.teams.count + 2).times do |time| %>
+          <th scope="col"><%= [0, @poule.teams.count + 1].include?(time) ? '' : time %></th>
         <% end %>
 
         <th scope="col">V/M</th>
