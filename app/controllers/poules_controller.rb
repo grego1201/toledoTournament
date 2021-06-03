@@ -33,6 +33,46 @@ class PoulesController < ApplicationController
     @team_names_by_id = team_names_by_id
   end
 
+  def export_classification_file
+    @poules = Poule.all
+    @classification = calculcate_classification
+    @team_names_by_id = team_names_by_id
+
+    classification_list_text = []
+    @classification.each_with_index do |value|
+      team = Team.find(value.first)
+      classification_list_text << [team.name, team.fencer_names, value.second.join(' - ')]
+    end
+
+    file_path = "classification_#{Time.now.to_i}.pdf"
+
+    Prawn::Document.generate(file_path) do
+      classification_list_text.each_with_index do |text, index|
+        #create a bounding box for the list-item label
+        #float it so that the cursor doesn't move down
+        #float do
+          #bounding_box [15,cursor], :width => 300 do
+            #text "#{index + 1}. "
+          #end
+        #end
+
+                #create a bounding box for the list-item content
+        bounding_box [25,cursor], :width => 600 do
+          text text "#{index + 1}. " + text.first + "-->" + text.third
+        end
+        bounding_box [25,cursor], :width => 600 do
+          text text.second
+        end
+
+
+        #provide a space between list-items
+        move_down(5)
+      end
+    end
+
+    send_file(file_path)
+  end
+
   def generate_random_poules
     Poule.destroy_all
 

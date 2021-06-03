@@ -48,6 +48,16 @@ class Team < ApplicationRecord
 
   validate :check_fencers
 
+  def fencer_names
+    names = ""
+    fencers.each do |fencer|
+      names += "|| #{fencer.name} #{fencer.surname} "
+    end
+    names += "||"
+
+    names
+  end
+
   private
 
   def check_fencers
