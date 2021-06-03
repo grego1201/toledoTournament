@@ -1,1 +1,12 @@
 <h1> Final Classification </h1>
+
+<ul>
+  <% @groups.each_with_index do |group, index| %>
+    <h2> <%= link_to "Grupo #{index + 1}", group %></h2>
+    <% group.final_classification&.each do |position, team_id| %>
+      <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
+        <%= "#{position}. " %><%= team_name(team_id) %> <%= team_fencer_names(team_id) %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

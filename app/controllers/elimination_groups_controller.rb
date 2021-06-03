@@ -38,6 +38,7 @@ class EliminationGroupsController < ApplicationController
   end
 
   def final_classification
+    @groups = EliminationGroup.all
   end
 
   def generate
