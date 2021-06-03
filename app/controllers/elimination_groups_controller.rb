@@ -38,7 +38,50 @@ class EliminationGroupsController < ApplicationController
   end
 
   def final_classification
-    @groups = EliminationGroup.all
+    @groups = EliminationGroup.all.order(:id)
+  end
+
+  def final_classification_to_pdf
+    @groups = EliminationGroup.all.order(:id)
+    classification_list_text = []
+
+    @groups.each_with_index do |group, index|
+      tmp_clas = []
+
+      unless group.final_classification.nil?
+        group.final_classification.each_with_index do |content, index|
+          _, value = content
+          team = Team.find(value)
+          tmp_clas << "#{index + 1}. #{team.name}"
+          tmp_clas << "#{team.fencer_names}"
+        end
+      end
+
+      classification_list_text << tmp_clas
+    end
+
+    file_path = "tmp/final_classification_#{Time.now.to_i}.pdf"
+    Prawn::Document.generate(file_path) do
+      move_down(10)
+
+      classification_list_text.each_with_index do |classification, index|
+        bounding_box [25,cursor], :width => 600 do
+          text "Grupo #{index + 1}. "
+        end
+        move_down(20)
+
+        classification.each do |c_text|
+          bounding_box [25,cursor], :width => 600 do
+            text c_text
+          end
+          move_down(10)
+        end
+
+        start_new_page
+      end
+    end
+
+    send_file(file_path)
   end
 
   def generate
