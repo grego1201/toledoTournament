@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post '/import_fencers_text', to: 'fencers#import_text'
   post '/import_fencers_file', to: 'fencers#import_file'
   post '/generate_random_poules', to: 'poules#generate_random_poules'
+  post '/export_classification_file', to: 'poules#export_classification_file'
   post '/add_poule_result/:id', to: 'poules#add_poule_result'
   post '/generate_groups', to: 'elimination_groups#generate'
   post '/add_group_result/:id', to: 'elimination_groups#add_group_result'
