@@ -32,10 +32,23 @@
   </table>
 </div>
 
+
+<h1> Teams </h1>
 <ul>
   <% @teams.each do |team| %>
     <li>
       <%= team.name %> <%= team_fencer_names(team.id) %>
+    </li>
+  <% end %>
+</ul>
+
+<h1> Assault order </h1>
+<ul>
+  <% @poule.assault_order.each do |key, value| %>
+    <li> <%= key %>:
+      <%= @teams[value['first_team'].to_i - 1].name %>
+      ||
+      <%= @teams[value['second_team'].to_i - 1].name %>
     </li>
   <% end %>
 </ul>
