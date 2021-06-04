@@ -1,4 +1,4 @@
-<h1>Groups</h1>
+<h1>Grupos</h1>
 
 <ul class="list-group">
   <% @groups.each_with_index do |group, index| %>
@@ -14,5 +14,5 @@
 </ul>
 
 <% if user_signed_in? %>
-  <%= link_to 'Generate groups from classification', generate_groups_path, method: :post %>
+  <%= link_to 'Generar equipos desde la clasificacion', generate_groups_path, method: :post %>
 <% end %>
