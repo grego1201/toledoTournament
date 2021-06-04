@@ -1,6 +1,6 @@
 <%= form_with model: @fencer do |form| %>
   <div class="form-group">
-    <%= form.label :name %><br>
+    <%= form.label :Nombre %><br>
     <%= form.text_field :name, { class: 'form-control' } %>
     <% @fencer.errors.full_messages_for(:name).each do |message| %>
       <div><%= message %></div>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :surname %><br>
+    <%= form.label :Apellido %><br>
     <%= form.text_field :surname, { class: 'form-control' } %>
     <% @fencer.errors.full_messages_for(:surname).each do |message| %>
       <div><%= message %></div>
@@ -16,7 +16,7 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :club %><br>
+    <%= form.label :Club %><br>
     <%= form.text_field :club, { class: 'form-control' } %>
     <% @fencer.errors.full_messages_for(:club).each do |message| %>
       <div><%= message %></div>
@@ -24,12 +24,12 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :nationality %><br>
+    <%= form.label :Nacionalidad %><br>
     <%= form.text_field :nationality, { class: 'form-control' } %>
     <% @fencer.errors.full_messages_for(:nationality).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Crear</button>
 <% end %>

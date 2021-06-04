@@ -1,4 +1,4 @@
-<h1>Teams</h1>
+<h1>Equipos</h1>
 
 <ul class="list-group">
   <% @teams.each_with_index do |team, index| %>
@@ -13,11 +13,11 @@
 </ul>
 
 <% if user_signed_in? %>
-  <%= link_to 'Create', new_team_path %>
-  <%= link_to 'Generate random teams', generate_random_teams_path, method: :post %>
+  <%= link_to 'Crear', new_team_path %>
+  <%= link_to 'Generar equipos aleatorios', generate_random_teams_path, method: :post %>
 <% end %>
 
-<h1> Fencers without club </h1>
+<h1> Tiradoras sin equipo </h1>
 <ul class="list-group">
   <% @fencers_without_team.each_with_index do |fencer, index| %>
       <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">

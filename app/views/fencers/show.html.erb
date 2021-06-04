@@ -1,17 +1,17 @@
 <h1><%= @fencer.name %></h1>
 
 <p>Club: <%= @fencer.club %></p>
-<p>Surname:  <%= @fencer.surname %></p>
-<p>Nationality: <%= @fencer.nationality %></p>
+<p>Apellidos:  <%= @fencer.surname %></p>
+<p>Nacionalidad: <%= @fencer.nationality %></p>
 
 <% if @team %>
-  <h2> Team </h2>
+  <h2> Equipo </h2>
   <ul>
     <% @team.fencers.each do |fencer| %>
       <li> <%= fencer.name %> <%= fencer.surname %> - <%= fencer.club %> - <%= fencer.nationality %></li>
     <% end %>
 
-    <li> Name: <%= @team.name %> </li>
+    <li> Nombre: <%= @team.name %> </li>
     <% if @team.poule_id %>
       <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= @team.poule&.piste %></li>
     <% else %>
@@ -23,10 +23,10 @@
 
 <% if user_signed_in? %>
   <ul>
-    <li><%= link_to 'Edit', edit_fencer_path(@fencer) %></li>
-    <li><%= link_to 'Destroy', fencer_path(@fencer),
+    <li><%= link_to 'Editar', edit_fencer_path(@fencer) %></li>
+    <li><%= link_to 'Borrar', fencer_path(@fencer),
       method: :delete,
       data: { confirm: 'Are you sure?' } %></li>
-    <li><%= link_to 'Back', fencers_path %></li>
+    <li><%= link_to 'Volver', fencers_path %></li>
   </ul>
 <% end %>

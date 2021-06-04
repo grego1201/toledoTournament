@@ -1,4 +1,4 @@
-<h1>Fencers</h1>
+<h1>Tiradoras</h1>
 
 <ul class="list-group">
   <% @fencers.each_with_index do |fencer, index| %>
@@ -10,18 +10,18 @@
 
 <%= form_with url: '/import_fencers_text', method: :post do |form| %>
   <div class="form-group">
-    <%= form.label :users_import %>
+    <%= form.label :Tiradoras %>
     <%= form.text_field :users_import, { class: 'form-control', required: true } %>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Importar</button>
 <% end %>
 
 <%= form_with url: '/import_fencers_file', method: :post do |form| %>
   <div class="form-group">
-    <%= form.label :users_import %>
+    <%= form.label :Tiradoras %>
     <%= form.file_field :users_import, { class: 'form-control', required: true } %>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Importar</button>
 <% end %>
