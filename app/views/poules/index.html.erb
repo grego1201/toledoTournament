@@ -5,9 +5,9 @@
   <div class="btn-toolbar mb-3" role="toolbar" aria-label="Poule filters">
     <div class="input-group">
       <div class="input-group-prepend">
-        <div class="input-group-text" id="btnGroupAddon">Team name</div>
+        <div class="input-group-text" id="btnGroupAddon">Nombre equipo</div>
       </div>
-      <%= form.text_field :team_name, { class: 'form-control', placeholder: 'Team name', aria: { describedby: 'btnGroupAddon', label: 'Team name'}, value: @old_params[:team_name] } %>
+      <%= form.text_field :team_name, { class: 'form-control', placeholder: 'Nombre equipo', aria: { describedby: 'btnGroupAddon', label: 'Nombre equipo'}, value: @old_params[:team_name] } %>
     </div>
 
     <div class="input-group">
@@ -17,7 +17,7 @@
       <%= form.select :poule_id, options_from_collection_for_select(@all_poules, 'id', 'id', @old_params[:poule_id] || nil), {include_blank: true}, { class: 'form-control', include_blank: true } %>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
   </div>
 <% end %>
 
@@ -57,10 +57,10 @@
 <% if user_signed_in? %>
   <%= form_with url: '/generate_random_poules', method: :post do |form| %>
     <div class="form-group">
-      <%= form.label :max_per_poule %>
+      <%= form.label :max_por_poule %>
       <%= form.number_field :max_per_poule, { class: 'form-control', required: true, default: 6 } %>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Crear</button>
   <% end %>
 <% end %>

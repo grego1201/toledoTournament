@@ -32,7 +32,7 @@
   </table>
 </div>
 
-<h1> Teams </h1>
+<h1> Equipos </h1>
 <ul>
   <% @teams.each do |team| %>
     <li>
@@ -41,7 +41,7 @@
   <% end %>
 </ul>
 
-<h1> Assault order </h1>
+<h1> Orden asaltos </h1>
 <ul>
   <% @poule.assault_order.each do |key, value| %>
     <li> <%= key %>:
@@ -53,29 +53,29 @@
 </ul>
 
 <% if user_signed_in? %>
-  <h1> Add poule piste </h1>
+  <h1> Añadir pista a poule </h1>
   <%= form_with url: "/poules/#{@poule.id}", method: :patch do |form| %>
     <div class="form-group">
       <%= form.label :piste %>
       <%= form.number_field :piste, { class: 'form-control' } %>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Enviar</button>
   <% end %>
 
-  <h1> Add poule results </h1>
+  <h1> Añadir resultados </h1>
 
   <%= form_with url: "/add_poule_result/#{@poule.id}", method: :post do |form| %>
     <div class="form-group">
-      <%= form.label :team_id %><br>
+      <%= form.label :id_equipo %><br>
       <%= form.select :team_id, options_from_collection_for_select(@teams, 'id', 'id'), {}, { class: 'form-control' } %>
     </div>
 
     <div class="form-group">
-      <%= form.label :poule_results %>
+      <%= form.label :resultado %>
       <%= form.text_field :poule_results, { class: 'form-control', required: true } %>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Enviar</button>
   <% end %>
 <% end %>
