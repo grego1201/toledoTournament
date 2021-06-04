@@ -1,19 +1,19 @@
-<h1>Fencers</h1>
+<h1>Tiradoras</h1>
 
 <%= form_with url: '/fencers', method: :get do |form| %>
   <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
     <div class="input-group">
       <div class="input-group-prepend">
-        <div class="input-group-text" id="btnGroupAddon">Name</div>
+        <div class="input-group-text" id="btnGroupAddon">Nombre</div>
       </div>
-      <%= form.text_field :name, { class: 'form-control', placeholder: 'Name', aria: { describedby: 'btnGroupAddon', label: 'Name'}, value: @old_params[:name] } %>
+      <%= form.text_field :name, { class: 'form-control', placeholder: 'Nombre', aria: { describedby: 'btnGroupAddon', label: 'Nombre'}, value: @old_params[:name] } %>
     </div>
 
     <div class="input-group">
       <div class="input-group-prepend">
-        <div class="input-group-text" id="btnGroupAddon">Surname</div>
+        <div class="input-group-text" id="btnGroupAddon">Apellidos</div>
       </div>
-      <%= form.text_field :surname, { class: 'form-control', placeholder: 'Surname', aria: { describedby: 'btnGroupAddon', label: 'Surname'}, value: @old_params[:surname] } %>
+      <%= form.text_field :surname, { class: 'form-control', placeholder: 'Apellidos', aria: { describedby: 'btnGroupAddon', label: 'Apellidos'}, value: @old_params[:surname] } %>
     </div>
 
     <div class="input-group">
@@ -25,19 +25,19 @@
 
     <div class="input-group">
       <div class="input-group-prepend">
-        <div class="input-group-text" id="btnGroupAddon">Nationality</div>
+        <div class="input-group-text" id="btnGroupAddon">Nacionalidad</div>
       </div>
-      <%= form.text_field :nationality, { class: 'form-control', placeholder: 'Nationality', aria: { describedby: 'btnGroupAddon', label: 'Nationality'}, value: @old_params[:nationality] } %>
+      <%= form.text_field :nationality, { class: 'form-control', placeholder: 'Nacionalidad', aria: { describedby: 'btnGroupAddon', label: 'Nacionalidad'}, value: @old_params[:nationality] } %>
     </div>
 
     <div class="input-group">
       <div class="input-group-prepend">
-        <div class="input-group-text" id="btnGroupAddon">Per page</div>
+        <div class="input-group-text" id="btnGroupAddon">Por página</div>
       </div>
-      <%= form.number_field :per_page, { class: 'form-control', aria: { describedby: 'btnGroupAddon', label: 'Per page'}, value: @per_page } %>
+      <%= form.number_field :per_page, { class: 'form-control', aria: { describedby: 'btnGroupAddon', label: 'Por página'}, value: @per_page } %>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
   </div>
 <% end %>
 
@@ -50,17 +50,17 @@
 </ul>
 
 <% if user_signed_in? %>
-  <%= link_to 'Create', new_fencer_path %>
+  <%= link_to 'Crear', new_fencer_path %>
   <p>
 
-  <%= link_to 'Export as text', export_fencers_text_path, method: :post %>
-  <%= link_to 'Export as file (csv)', export_fencers_file_path, method: :post %>
+  <%= link_to 'Exportar como texto', export_fencers_text_path, method: :post %>
+  <%= link_to 'Exportar como fichero (csv)', export_fencers_file_path, method: :post %>
   <p>
 
-  <%= link_to 'Import fencers', import_fencers_path %>
+  <%= link_to 'Importar tiradoras', import_fencers_path %>
 
   <% unless @export_text.blank? %>
-    <h1> Export result</h1>
+    <h1> Exportar resultados</h1>
 
     <p>
 
