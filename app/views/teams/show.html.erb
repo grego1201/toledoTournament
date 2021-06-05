@@ -7,10 +7,9 @@
 
   <% if @team.poule_id %>
     <li> Poule: <%= link_to @team.poule.fake_id, poule_path(@team.poule_id) %> Pista: <%= @team.poule&.piste %></li>
-    <li> Poule: Pista: <%= @team.poule&.piste %></li>
   <% end %>
   <% if @team.elimination_group %>
-    <li> Grupo: <%= link_to @team.elimination_group.id, @team.elimination_group %> </li>
+    <li> Grupo: <%= link_to fake_group_id(@team.elimination_group.id), @team.elimination_group %> </li>
   <% end %>
 </ul>
 

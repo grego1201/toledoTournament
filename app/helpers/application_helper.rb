@@ -49,6 +49,10 @@ module ApplicationHelper
     team.fake_id
   end
 
+  def fake_group_id(elimination_group_id)
+    EliminationGroup.all.sort.pluck(:id).index(elimination_group_id) + 1
+  end
+
   def calculate_results_from_poule(poule_id)
     [].tap do |results|
       poule = Poule.find(poule_id)
@@ -69,7 +73,7 @@ module ApplicationHelper
     team = Team.find_by(id: key)
     return '' if team.nil?
 
-    "#{team.id}. #{team.name}"
+    "#{team.fake_id}. #{team.name}"
   end
 
   def team_match_results(team_id, values, poule)
