@@ -62,6 +62,10 @@ class Team < ApplicationRecord
     names
   end
 
+  def fake_id
+    Team.all.sort.pluck(:id).index(id) + 1
+  end
+
   private
 
   def check_fencers

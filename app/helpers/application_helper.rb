@@ -29,7 +29,7 @@ module ApplicationHelper
     team = Team.find_by(id: team_id)
     return '' if team.nil?
 
-    team.name || team.id
+    team.name || team.fake_id
   end
 
   def team_fencer_names(team_id)

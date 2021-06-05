@@ -6,7 +6,7 @@ class PoulesController < ApplicationController
   }
 
   def index
-    @poules = Poule.all
+    @poules = Poule.all.sort
     @all_poules = Poule.all || []
     @teams = Team.all
     @old_params = params.permit(:poule_id, :team_name)
@@ -236,7 +236,7 @@ class PoulesController < ApplicationController
 
   def team_index_name(key)
     team = Team.find(key)
-    "#{team.id}. #{team.name}"
+    "#{team.fake_id}. #{team.name}"
   end
 
   def team_names_by_id

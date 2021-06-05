@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.all
+    @teams = Team.all.sort
     @fencers_without_team = Fencer.without_team
   end
 
