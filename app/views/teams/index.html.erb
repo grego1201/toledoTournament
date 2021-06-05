@@ -1,5 +1,46 @@
 <h1>Equipos</h1>
 
+<%= form_with url: '/teams', method: :get do |form| %>
+  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Nombre equipo</div>
+      </div>
+      <%= form.text_field :team_name, { class: 'form-control', placeholder: 'Nombre equipo', aria: { describedby: 'btnGroupAddon', label: 'Nombre equipo'}, value: @old_params[:team_name] } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Nombre tiradora</div>
+      </div>
+      <%= form.text_field :fencer_name, { class: 'form-control', placeholder: 'Nombre tiradora', aria: { describedby: 'btnGroupAddon', label: 'Nombre tiradora'}, value: @old_params[:fencer_name] } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Apellidos</div>
+      </div>
+      <%= form.text_field :surname, { class: 'form-control', placeholder: 'Apellidos', aria: { describedby: 'btnGroupAddon', label: 'Apellidos'}, value: @old_params[:surname] } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Club</div>
+      </div>
+      <%= form.text_field :club, { class: 'form-control', placeholder: 'Club', aria: { describedby: 'btnGroupAddon', label: 'Club'}, value: @old_params[:club] } %>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text" id="btnGroupAddon">Nacionalidad</div>
+      </div>
+      <%= form.text_field :nationality, { class: 'form-control', placeholder: 'Nacionalidad', aria: { describedby: 'btnGroupAddon', label: 'Nacionalidad'}, value: @old_params[:nationality] } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+  </div>
+<% end %>
+
 <ul class="list-group">
   <% @teams.each_with_index do |team, index| %>
     <li class="list-group-item <%= index.odd? ? 'list-group-item-secondary' : 'list-group-item-light' %>">
