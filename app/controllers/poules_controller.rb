@@ -11,7 +11,7 @@ class PoulesController < ApplicationController
     @teams = Team.all
     @old_params = params.permit(:poule_id, :team_name)
     @poules = @poules.where(id: @old_params[:poule_id].to_i) unless @old_params[:poule_id].blank?
-    @poules = @poules.includes(:teams).where(teams: {name: @old_params[:team_name]}) unless @old_params[:team_name].blank?
+    @poules = @poules.joins(:teams).where("lower(teams.name) ILIKE ?", "%#{@old_params[:team_name].downcase}%") unless @old_params[:team_name].blank?
 
     @poules.sort
   end
