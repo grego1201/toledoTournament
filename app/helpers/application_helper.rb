@@ -163,7 +163,7 @@ module ApplicationHelper
     end
   end
 
-  def parse_team(team_id)
-    team = Team.find(team_id)
+  def available_team_names
+    Team::NAMES - Team.all.pluck(:name)
   end
 end

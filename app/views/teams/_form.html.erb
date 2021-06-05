@@ -15,5 +15,13 @@
     <% end %>
   </div>
 
+  <div class="form-group">
+    <%= form.label :Nombre %><br>
+    <%= form.select :name, available_team_names, {}, { class: 'form-control' } %>
+    <% @team.errors.full_messages_for(:fencer2).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
   <button type="submit" class="btn btn-primary">Enviar</button>
 <% end %>
