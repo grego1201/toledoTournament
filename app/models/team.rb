@@ -38,7 +38,11 @@ class Team < ApplicationRecord
     'Rosalind Franklin',
     'Ruth Beitia',
     'Sandra Sanchez',
-    'Teresa Perales'
+    'Teresa Perales',
+    'Ana María Popescu',
+    'Mara Navarria',
+    'Gema Hassen-Bey',
+    'Violetta Kolobova'
   ]
 
   has_many :fencers
