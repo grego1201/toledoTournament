@@ -127,7 +127,7 @@ class TeamsController < ApplicationController
   def prepare_fencers_select
     without_team_ids = Fencer.without_team.ids
     fencer_ids = @team&.fencer_ids + without_team_ids
-    Fencer.where(id: fencer_ids)
+    Fencer.where(id: fencer_ids).collect {|fencer| ["#{fencer.name} #{fencer.surname} #{fencer.club}", fencer.id]}
   end
 
   def obtain_available_team_name
