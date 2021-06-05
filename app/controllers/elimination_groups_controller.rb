@@ -7,7 +7,7 @@ class EliminationGroupsController < ApplicationController
     @group = EliminationGroup.find(params[:id])
     @tableau_size = [8, 4, 2, 1]
     @positions = [*1..8]
-    @team_ids = @group.team_ids
+    @team_ids = @group.teams.order(:id).collect {|team| ["#{team.fake_id} #{team.name}", team.id]}
   end
 
   def add_group_result
@@ -28,13 +28,19 @@ class EliminationGroupsController < ApplicationController
     safe_params = params.permit(:id, :group_classification)
     @group = EliminationGroup.find(safe_params[:id])
 
-    final_classification = {}
+    tmp_classification = {}
     safe_params[:group_classification].split(',').each_with_index do |team_id, index|
-      final_classification[index + 1] = team_id.gsub(' ', '')
+      tmp_classification[index + 1] = team_id.gsub(' ', '')
+    end
+
+    sorted_team_ids = Team.all.sort.pluck(:id)
+    final_classification = {}
+    tmp_classification.each do |position, value|
+      final_classification[position] = sorted_team_ids[value.to_i - 1]
     end
 
     @group.update_column(:final_classification, final_classification)
-    redirect_to @group
+    redirect_to final_classification_path
   end
 
   def final_classification

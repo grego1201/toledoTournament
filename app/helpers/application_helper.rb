@@ -29,7 +29,7 @@ module ApplicationHelper
     team = Team.find_by(id: team_id)
     return '' if team.nil?
 
-    team.name || team.id
+    team.name || team.fake_id
   end
 
   def team_fencer_names(team_id)
@@ -42,6 +42,11 @@ module ApplicationHelper
     end
 
     names
+  end
+
+  def team_fake_id(team_id)
+    team = Team.find_by(id: team_id)
+    team.fake_id
   end
 
   def calculate_results_from_poule(poule_id)
@@ -97,7 +102,7 @@ module ApplicationHelper
       victories += 1 if result&.first
     end
 
-    victory_percent = victories == 0 ? 0 : victories/(values.count).to_f
+    victory_percent = victories == 0 ? 0 : (victories/(values.count).to_f).round(3)
     [victory_percent, hit_points - received_points, hit_points]
   end
 
@@ -143,7 +148,7 @@ module ApplicationHelper
         cell_content = if team_id
                          tag.div do
                            [
-                             tag.a(" #{team_id}. #{team_name(team_id)}", href: team_path(team_id) ),
+                             tag.a(" #{team_fake_id(team_id)}. #{team_name(team_id)}", href: team_path(team_id) ),
                              tag.div(" - #{team_fencer_names(team_id)}")
                            ].join.html_safe
                          end
@@ -158,7 +163,7 @@ module ApplicationHelper
     end
   end
 
-  def parse_team(team_id)
-    team = Team.find(team_id)
+  def available_team_names
+    Team::NAMES - Team.all.pluck(:name)
   end
 end

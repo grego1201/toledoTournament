@@ -1,4 +1,4 @@
-<h1><%= @team.id %>. <%= @team.name %></h1>
+<h1><%= @team.fake_id %>. <%= @team.name %></h1>
 
 <ul>
   <% @team.fencers.each do |fencer| %>
@@ -6,11 +6,12 @@
   <% end %>
 
   <% if @team.poule_id %>
-    <li> Poule: <%= link_to @team.poule_id, poule_path(@team.poule_id) %> Pista: <%= @team.poule&.piste %></li>
-  <% else %>
+    <li> Poule: <%= link_to @team.poule.fake_id, poule_path(@team.poule_id) %> Pista: <%= @team.poule&.piste %></li>
     <li> Poule: Pista: <%= @team.poule&.piste %></li>
   <% end %>
-  <li> Grupo: <%= link_to @team.elimination_group.id, @team.elimination_group %> </li>
+  <% if @team.elimination_group %>
+    <li> Grupo: <%= link_to @team.elimination_group.id, @team.elimination_group %> </li>
+  <% end %>
 </ul>
 
 <% if user_signed_in? %>

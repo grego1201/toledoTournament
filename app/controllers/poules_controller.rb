@@ -6,7 +6,7 @@ class PoulesController < ApplicationController
   }
 
   def index
-    @poules = Poule.all
+    @poules = Poule.all.sort
     @all_poules = Poule.all || []
     @teams = Team.all
     @old_params = params.permit(:poule_id, :team_name)
@@ -20,6 +20,7 @@ class PoulesController < ApplicationController
     @poule = Poule.find(params[:id])
     @poule_results = calculate_results_from_poule
     @teams = @poule.teams.order(:id) || []
+    @teams_for_select = @poule.teams.order(:id).collect {|team| ["#{team.fake_id} #{team.name}", team.id]}
   end
 
   def update
@@ -47,14 +48,14 @@ class PoulesController < ApplicationController
     classification_list_text = []
     @classification.each_with_index do |value|
       team = Team.find(value.first)
-      classification_list_text << [team.name, team.fencer_names, value.second.join(' - ')]
+      classification_list_text << [team.name, team.fencer_names, value.second.join(' / ')]
     end
 
     file_path = "tmp/classification_#{Time.now.to_i}.pdf"
 
     Prawn::Document.generate(file_path) do
       bounding_box [25,cursor], :width => 600 do
-        text "Posición. " + "Nombre equipo" + "-->" + "V/M - TD-TR - TD"
+        text "Posición. " + "Nombre equipo" + "-->" + "V/M / TD-TR / TD"
       end
 
       bounding_box [25,cursor], :width => 600 do
@@ -230,13 +231,13 @@ class PoulesController < ApplicationController
       victories += 1 if result&.first
     end
 
-    victory_percent = victories == 0 ? 0 : victories/(values.count).to_f
+    victory_percent = victories == 0 ? 0 : (victories/(values.count).to_f).round(3)
     [victory_percent, hit_points - received_points, hit_points]
   end
 
   def team_index_name(key)
     team = Team.find(key)
-    "#{team.id}. #{team.name}"
+    "#{team.fake_id}. #{team.name}"
   end
 
   def team_names_by_id

@@ -2,6 +2,17 @@ class TeamsController < ApplicationController
   def index
     @teams = Team.all
     @fencers_without_team = Fencer.without_team
+
+    filter_params = params.permit(:team_name, :fencer_name, :surname, :club, :nationality)
+    @old_params = filter_params
+
+    @teams = @teams.where("lower(name) ILIKE ?", "%#{filter_params[:team_name]}%") unless filter_params[:team_name].blank?
+    @teams = @teams.joins(:fencers).where("lower(fencers.name) ILIKE ?", "%#{filter_params[:fencer_name]}%") unless filter_params[:fencer_name].blank?
+    @teams = @teams.joins(:fencers).where("lower(fencers.surname) ILIKE ?", "%#{filter_params[:surname]}%") unless filter_params[:surname].blank?
+    @teams = @teams.joins(:fencers).where("lower(fencers.club) ILIKE ?", "%#{filter_params[:club]}%") unless filter_params[:club].blank?
+    @teams = @teams.joins(:fencers).where("lower(fencers.nationality) ILIKE ?", "%#{filter_params[:nationality]}%") unless filter_params[:nationality].blank?
+
+    @teams.sort
   end
 
   def show
@@ -116,7 +127,7 @@ class TeamsController < ApplicationController
   def prepare_fencers_select
     without_team_ids = Fencer.without_team.ids
     fencer_ids = @team&.fencer_ids + without_team_ids
-    Fencer.where(id: fencer_ids)
+    Fencer.where(id: fencer_ids).collect {|fencer| ["#{fencer.name} #{fencer.surname} #{fencer.club}", fencer.id]}
   end
 
   def obtain_available_team_name

@@ -16,7 +16,7 @@
       <% @classification.each_with_index do |value, index| %>
         <tr>
           <td><%= index + 1 %></td>
-          <td><%= link_to "#{value.first} #{@team_names_by_id[value.first.to_i]}", team_path(value.first) %></td>
+          <td><%= link_to "#{team_fake_id(value.first)} #{@team_names_by_id[value.first.to_i]}", team_path(value.first) %></td>
           <td><%= team_fencer_names(value.first) %></td>
           <td><%= value.second.first %></td>
           <td><%= value.second.second %></td>
