@@ -102,7 +102,7 @@ module ApplicationHelper
       victories += 1 if result&.first
     end
 
-    victory_percent = victories == 0 ? 0 : victories/(values.count).to_f
+    victory_percent = victories == 0 ? 0 : (victories/(values.count).to_f).round(3)
     [victory_percent, hit_points - received_points, hit_points]
   end
 
