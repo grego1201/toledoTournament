@@ -44,6 +44,11 @@ module ApplicationHelper
     names
   end
 
+  def team_fake_id(team_id)
+    team = Team.find_by(id: team_id)
+    team.fake_id
+  end
+
   def calculate_results_from_poule(poule_id)
     [].tap do |results|
       poule = Poule.find(poule_id)

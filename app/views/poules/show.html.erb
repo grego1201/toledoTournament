@@ -1,10 +1,10 @@
-<h1><%= @poule.id %></h1>
+<h1><%= @poule.fake_id %></h1>
 
 <div class='table-responsive'>
   <table class="table table-striped table-bordered">
     <thead>
       <tr class='table-primary'>
-        <th scope="col"><%= "Poule No #{@poule.id}. Piste: #{@poule.piste}" %></th>
+        <th scope="col"><%= "Poule No #{@poule.fake_id}. Piste: #{@poule.piste}" %></th>
 
         <% (@poule.teams.count + 2).times do |time| %>
           <th scope="col"><%= [0, @poule.teams.count + 1].include?(time) ? '' : time %></th>

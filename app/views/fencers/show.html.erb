@@ -17,7 +17,10 @@
     <% else %>
       <li> Poule: Pista: <%= @team.poule&.piste %></li>
     <% end %>
-    <li> Grupo: <%= link_to @team.elimination_group.id, @team.elimination_group %> </li>
+
+    <% if @team.elimination_group_id %>
+      <li> Grupo: <%= link_to @team.elimination_group.id, @team.elimination_group %> </li>
+    <% end %>
   <% end %>
   </ul>
 
