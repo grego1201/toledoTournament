@@ -20,6 +20,7 @@ class PoulesController < ApplicationController
     @poule = Poule.find(params[:id])
     @poule_results = calculate_results_from_poule
     @teams = @poule.teams.order(:id) || []
+    @teams_for_select = @poule.teams.order(:id).collect {|team| ["#{team.fake_id} #{team.name}", team.id]}
   end
 
   def update

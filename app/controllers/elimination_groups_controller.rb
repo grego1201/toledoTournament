@@ -7,7 +7,7 @@ class EliminationGroupsController < ApplicationController
     @group = EliminationGroup.find(params[:id])
     @tableau_size = [8, 4, 2, 1]
     @positions = [*1..8]
-    @team_ids = @group.team_ids
+    @team_ids = @group.teams.order(:id).collect {|team| ["#{team.fake_id} #{team.name}", team.id]}
   end
 
   def add_group_result

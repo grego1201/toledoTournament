@@ -148,7 +148,7 @@ module ApplicationHelper
         cell_content = if team_id
                          tag.div do
                            [
-                             tag.a(" #{team_id}. #{team_name(team_id)}", href: team_path(team_id) ),
+                             tag.a(" #{team_fake_id(team_id)}. #{team_name(team_id)}", href: team_path(team_id) ),
                              tag.div(" - #{team_fencer_names(team_id)}")
                            ].join.html_safe
                          end
