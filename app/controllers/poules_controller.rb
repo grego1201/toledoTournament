@@ -48,14 +48,14 @@ class PoulesController < ApplicationController
     classification_list_text = []
     @classification.each_with_index do |value|
       team = Team.find(value.first)
-      classification_list_text << [team.name, team.fencer_names, value.second.join(' - ')]
+      classification_list_text << [team.name, team.fencer_names, value.second.join(' / ')]
     end
 
     file_path = "tmp/classification_#{Time.now.to_i}.pdf"
 
     Prawn::Document.generate(file_path) do
       bounding_box [25,cursor], :width => 600 do
-        text "Posición. " + "Nombre equipo" + "-->" + "V/M - TD-TR - TD"
+        text "Posición. " + "Nombre equipo" + "-->" + "V/M / TD-TR / TD"
       end
 
       bounding_box [25,cursor], :width => 600 do
