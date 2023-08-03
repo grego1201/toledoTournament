@@ -260,6 +260,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   kaminari
   listen (~> 3.3)
+  matrix (~> 0.4.2)
   pg (~> 1.1)
   prawn
   puma (~> 5.0)
